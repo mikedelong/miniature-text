@@ -10,22 +10,12 @@ Created on Thu Apr  4 11:03:32 2019
 
 from tika import parser
 
-#from nltk import FreqDist
-#from nltk import word_tokenize
-
-#import re
-#import sys
-#reload(sys)
-#sys.setdefaultencoding("utf-8")
 import nltk.data
 import string
 from nltk.tokenize import word_tokenize
-#import numpy as numpy
-#from numpy import ndarray
 
 '''
 100-word summaries using SumBasic
-python ./sumbasic.py simplified ./docs/doc1-*.txt > simplified-1.txt
 '''
 
 #Find word with highest probability in text
@@ -75,8 +65,6 @@ def cal_weight(sentences, wordprob):
         weight_sentences[i] = sum_up
         i+=1
     return weight_sentences
-    '''for i in weight_sentences:
-        print weight_sentences[i]'''
 
 #Recalculate weight of each word in chosen sentence
 #pnew = pold*pold
@@ -159,6 +147,6 @@ if __name__ == '__main__':
         #Resorting the list of word probabilities
         wordprob_list = sorted(wordprob_list, key=lambda x: x[1], reverse=True) 
         
-    print (summary.strip())
-    print (len(summary))
-    print (len(remove_punctuations(summary)))
+    print ('Here is our summary:\n{}'.format(summary.strip()))
+    print ('Our summary is {} characters'.format(len(summary)))
+    print ('Our summary is {} tokens'.format(len(remove_punctuations(summary))))
