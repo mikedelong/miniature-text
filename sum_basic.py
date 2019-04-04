@@ -7,12 +7,11 @@ Created on Thu Apr  4 11:03:32 2019
 
 # http://basicodingfordummies.blogspot.com/2015/12/sumbasic-algorithm-for-multi-document.html
 
-
-from tika import parser
-
-import nltk.data
-import string
+from nltk.data import load
 from nltk.tokenize import word_tokenize
+from string import punctuation
+from tika import parser
+from time import time
 
 '''
 100-word summaries using SumBasic
@@ -50,7 +49,7 @@ def highest_scoring_sentence(subset_sent):
 
 #Calculate weight of each sentence
 #weight = average probability of words in sentence
-def cal_weight(sentences, wordprob):
+def cal_weight(sentences, wordprob, verbose=0):
     weight_sentences = {}
     i = 0
     for s in sentences:
@@ -60,7 +59,8 @@ def cal_weight(sentences, wordprob):
             if w in wordprob.keys():
                 sum_up += wordprob[w]
             else:
-                print('warning: we have no word probability for word {}'.format(w))
+                if verbose > 0:
+                    print('warning: we have no word probability for word {}'.format(w))
         sum_up = sum_up/num_words
         weight_sentences[i] = sum_up
         i+=1
@@ -81,7 +81,7 @@ def remove_punctuations(summary):
     
     reduced_list = []
     tokenized_summary = word_tokenize(summary)
-    punctuations = list(string.punctuation)
+    punctuations = list(punctuation)
     punctuations.append('\n')
     punctuations.append('\r')
     punctuations.append('\r\n')
@@ -93,42 +93,47 @@ def remove_punctuations(summary):
     return reduced_list
     
 if __name__ == '__main__':
+    # todo think about moving input identification to a config file
 #    num_args = len(sys.argv)
 #    file_name = sys.argv[1]
 #    fp = open(file_name)
 #    contents = fp.read()
 
+    t0 = time()
     input_file = './data/911-commission-full-report.pdf'
     parsed = parser.from_file(input_file)
     
     print('our content is a string of length {}'.format(len(parsed['content'])))
     contents = parsed['content']
+    t1 = time()
 
+    split_contents = contents.split()
     #Total number of words in the document
-    N = len(contents.split())
+    N = len(split_contents)
+    N1 = len(remove_punctuations(contents))
+    print('our content has {} tokens and {} tokens without punctuation'.format(N, N1))
 
     #Storing probability of each word
     wordprob={}
-    for word in contents.split():
+    for word in split_contents:
         if word not in wordprob:
             wordprob[word] = 1 / float(N)
         else:
             wordprob[word] += 1 / float(N)
     
-    wordprob_list = wordprob.items()
+#    wordprob_list = 
     #Sorting by maximum probability of words
-    wordprob_list = sorted(wordprob_list, key=lambda x: x[1], reverse=True) #sort by 2nd value, v
+    wordprob_list = sorted(wordprob.items(), key=lambda x: x[1], reverse=True) #sort by 2nd value, v
     
     #STEP 2
     #Dividing text into sentences
-    sentences={}
     summary = ''
-    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    tokenizer = load('tokenizers/punkt/english.pickle')
     sentences = tokenizer.tokenize(contents)
-     
+    t2 = time()
     
     #Loop till number of words in the summary is less than 100
-    while len(remove_punctuations(summary)) <= 100: 
+    while len(remove_punctuations(summary)) <= 200: 
         
         weighted = cal_weight(sentences, wordprob)    
         #STEP 3: Pick the best scoring sentence {that contains the highest probability word}
@@ -139,7 +144,7 @@ if __name__ == '__main__':
 
         #STEP 4: Updating the probability of each word in the chosen sentence
         chosen_sentence = sentences[max_pos]
-        summary = summary + chosen_sentence
+        summary = summary + chosen_sentence + ' '
         sentences.remove(chosen_sentence)
         if max_pos in weighted:        
             del weighted[max_pos]
@@ -147,6 +152,11 @@ if __name__ == '__main__':
         #Resorting the list of word probabilities
         wordprob_list = sorted(wordprob_list, key=lambda x: x[1], reverse=True) 
         
+    t3 = time()
     print ('Here is our summary:\n{}'.format(summary.strip()))
     print ('Our summary is {} characters'.format(len(summary)))
     print ('Our summary is {} tokens'.format(len(remove_punctuations(summary))))
+    print('raw data load time is {:5.2f}s'.format(t1 - t0))
+    print('tokenize time is {:5.2f}s'.format(t2 - t1))
+    print('summary time is {:5.2f}s'.format(t3 - t2))
+    print('total time is {:5.2f}s'.format(t3 - t0))
