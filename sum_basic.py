@@ -19,8 +19,7 @@ from time import time
 
 #Find word with highest probability in text
 def highest_probability_word(wordprob_list):
-    highest_pword = wordprob_list[0][0]
-    return highest_pword
+    return wordprob_list[0][0]
 
 #Find sentences containing highest probability word
 def sentences_with_highest_pword(wordprob_list, sentences):
@@ -74,23 +73,16 @@ def recal_weight(chosen_sentence, wordprob):
     for w in chosen_sentence.split():
         wordprob_new[w] = wordprob[w]*wordprob[w]
     return wordprob_new 
-    
+
+our_punctuation = list(punctuation) + ['\n', '\r', '\r\n']
+
 '''Removes all punctuations from a given string and returns a list 
    containing the words in the given string ''' 
+
 def remove_punctuations(summary): 
-    
-    reduced_list = []
     tokenized_summary = word_tokenize(summary)
-    punctuations = list(punctuation)
-    punctuations.append('\n')
-    punctuations.append('\r')
-    punctuations.append('\r\n')
-    
-    for word in tokenized_summary:
-        if word not in punctuations:
-            reduced_list.append(word) 
-            
-    return reduced_list
+    result = [word for word in tokenized_summary if word not in our_punctuation]        
+    return result
     
 if __name__ == '__main__':
     # todo think about moving input identification to a config file
@@ -103,7 +95,7 @@ if __name__ == '__main__':
     input_file = './data/911-commission-full-report.pdf'
     parsed = parser.from_file(input_file)
     
-    print('our content is a string of length {}'.format(len(parsed['content'])))
+    print('our content has {} characters'.format(len(parsed['content'])))
     contents = parsed['content']
     t1 = time()
 
@@ -121,7 +113,6 @@ if __name__ == '__main__':
         else:
             wordprob[word] += 1 / float(N)
     
-#    wordprob_list = 
     #Sorting by maximum probability of words
     wordprob_list = sorted(wordprob.items(), key=lambda x: x[1], reverse=True) #sort by 2nd value, v
     
