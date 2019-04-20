@@ -2,7 +2,7 @@
 """
 Created on Mon Apr  1 12:13:06 2019
 
-@author: michael.delong
+@author: mikedelong
 """
 
 import nltk.data
