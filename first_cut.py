@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
-input_file = './data/911-commission-full-report.pdf'
+input_file = './data/911Report.pdf'
 parsed = parser.from_file(input_file)
 
 print('our content is a string of length {}'.format(len(parsed['content'])))
