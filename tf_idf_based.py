@@ -2,7 +2,7 @@
 """
 Created on Fri Apr  5 10:58:14 2019
 
-@author: michael.delong
+@author: mikedelong
 """
 # https://medium.com/@acrosson/summarize-documents-using-tf-idf-bdee8f60b71
 # https://github.com/acrosson/nlp/tree/master/summarization
