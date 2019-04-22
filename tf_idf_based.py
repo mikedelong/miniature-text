@@ -108,8 +108,7 @@ def rank_sentences(doc, doc_matrix, feature_names, top_n=3):
     #    scored_sents = np.array(sent_values) + np.array(similarity_scores)
 
     # Apply Position Weights
-    ranked_sents = [sent * (i / len(sent_values))
-                    for i, sent in enumerate(sent_values)]
+    # ranked_sents = [sent * (i / len(sent_values)) for i, sent in enumerate(sent_values)]
 
     ranked_sents = [pair for pair in zip(range(len(sent_values)), sent_values)]
     ranked_sents = sorted(ranked_sents, key=lambda x: x[1] * -1)
