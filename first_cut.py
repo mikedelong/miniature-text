@@ -11,7 +11,8 @@ from nltk import FreqDist
 from nltk import word_tokenize
 from tika import parser
 
-tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+tokenizer_pickle = 'tokenizers/punkt/english.pickle'
+tokenizer = nltk.data.load(tokenizer_pickle)
 
 input_file = './data/911Report.pdf'
 parsed = parser.from_file(input_file)
