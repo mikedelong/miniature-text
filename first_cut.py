@@ -5,15 +5,25 @@ Created on Mon Apr  1 12:13:06 2019
 @author: mikedelong
 """
 
+import json
 import matplotlib.pyplot as plt
 import nltk.data
 from nltk import FreqDist
 from nltk import word_tokenize
 from tika import parser
 
-tokenizer_pickle = 'tokenizers/punkt/english.pickle'
-tokenizer = nltk.data.load(tokenizer_pickle)
+settings_file = 'first_cut.json'
+with open(settings_file, 'r') as settings_fp:
+    settings = json.load(settings_fp)
 
+tokenizer_pickle = settings['tokenizer_pickle'] if 'tokenizer_pickle' in settings.keys() else None
+if tokenizer_pickle is not None:
+    tokenizer = nltk.data.load(tokenizer_pickle)
+else:
+    print('tokenizer pickle is not defined in settings file {}. Quitting.'.format(settings_file))
+    quit(-1)
+
+# todo check for existence of data folder
 input_file = './data/911Report.pdf'
 parsed = parser.from_file(input_file)
 
