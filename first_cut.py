@@ -5,14 +5,11 @@ Created on Mon Apr  1 12:13:06 2019
 @author: mikedelong
 """
 
+import matplotlib.pyplot as plt
 import nltk.data
-
-from tika import parser
-
 from nltk import FreqDist
 from nltk import word_tokenize
-
-import matplotlib.pyplot as plt
+from tika import parser
 
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
@@ -40,18 +37,18 @@ print('our word count is {}'.format(freq_dist.N()))
 
 # now let's traverse our frequency distribution and build our token-probability map
 probabilities = {
-        word : float(freq_dist[word])/float(word_count) for word in freq_dist}
+    word: float(freq_dist[word]) / float(word_count) for word in freq_dist}
 
 # now we are ready to calculate scores for each sentence
 sentence_scores = {
-        sentence : sum([probabilities[word.lower()] for word in word_tokenize(sentence)])
-        for sentence in sentences}
+    sentence: sum([probabilities[word.lower()] for word in word_tokenize(sentence)])
+    for sentence in sentences}
 
-candidates = {key: value for key, value in sentence_scores.items() if value > 3.0 }
+candidates = {key: value for key, value in sentence_scores.items() if value > 3.0}
 
 for key, value in candidates.items():
     print('{:5.2f} {}'.format(value, key[:100]))
-    
+
 values = [value for value in candidates.values()]
 plt.plot(sorted(values))
 plt.show()
