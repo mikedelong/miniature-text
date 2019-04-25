@@ -11,6 +11,8 @@ import nltk.data
 from nltk import FreqDist
 from nltk import word_tokenize
 from tika import parser
+from os import makedirs
+from os.path import exists
 
 settings_file = 'first_cut.json'
 with open(settings_file, 'r') as settings_fp:
@@ -22,6 +24,12 @@ if tokenizer_pickle is not None:
 else:
     print('tokenizer pickle is not defined in settings file {}. Quitting.'.format(settings_file))
     quit(-1)
+
+input_folder = settings['input_folder'] if 'input_folder' in settings.keys() else None
+if input_folder is not None:
+    if not exists(input_folder):
+        makedirs(input_folder)
+
 
 # todo check for existence of data folder
 input_file = './data/911Report.pdf'
