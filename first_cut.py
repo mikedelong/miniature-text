@@ -6,13 +6,14 @@ Created on Mon Apr  1 12:13:06 2019
 """
 
 import json
+from os import makedirs
+from os.path import exists
+
 import matplotlib.pyplot as plt
 import nltk.data
 from nltk import FreqDist
 from nltk import word_tokenize
 from tika import parser
-from os import makedirs
-from os.path import exists
 
 settings_file = 'first_cut.json'
 with open(settings_file, 'r') as settings_fp:
@@ -29,7 +30,6 @@ input_folder = settings['input_folder'] if 'input_folder' in settings.keys() els
 if input_folder is not None:
     if not exists(input_folder):
         makedirs(input_folder)
-
 
 # todo check for existence of data folder
 input_file = './data/911Report.pdf'
