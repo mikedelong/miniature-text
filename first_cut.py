@@ -29,10 +29,23 @@ else:
 input_folder = settings['input_folder'] if 'input_folder' in settings.keys() else None
 if input_folder is not None:
     if not exists(input_folder):
-        makedirs(input_folder)
+        print('input data folder does not exist. Quitting.')
+        quit(-1)
+else:
+    print('input folder name is missing from settings. Quitting.')
+    quit(-1)
 
-# todo check for existence of data folder
-input_file = './data/911Report.pdf'
+input_file = settings['input_file'] if 'input_file' in settings.keys() else None
+if input_file is not None:
+    full_input_file = input_folder + input_file # what about /?
+else:
+    print('input file name is missing from settings. Quitting.')
+    quit(-1)
+
+if not exists(full_input_file):
+    print('input file {} is missing. Quitting.'.format(full_input_file))
+    quit(-1)
+
 parsed = parser.from_file(input_file)
 
 print('our content is a string of length {}'.format(len(parsed['content'])))
