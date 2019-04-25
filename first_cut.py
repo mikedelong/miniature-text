@@ -37,7 +37,7 @@ else:
 
 input_file = settings['input_file'] if 'input_file' in settings.keys() else None
 if input_file is not None:
-    full_input_file = input_folder + input_file # what about /?
+    full_input_file = input_folder + input_file  # what about /?
 else:
     print('input file name is missing from settings. Quitting.')
     quit(-1)
