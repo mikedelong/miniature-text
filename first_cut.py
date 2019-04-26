@@ -6,7 +6,6 @@ Created on Mon Apr  1 12:13:06 2019
 """
 
 import json
-from os import makedirs
 from os.path import exists
 
 import matplotlib.pyplot as plt
