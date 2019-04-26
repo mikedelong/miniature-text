@@ -35,6 +35,7 @@ else:
     quit(-1)
 
 input_file = settings['input_file'] if 'input_file' in settings.keys() else None
+full_input_file = None
 if input_file is not None:
     full_input_file = input_folder + input_file  # what about /?
 else:
