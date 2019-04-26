@@ -19,6 +19,7 @@ with open(settings_file, 'r') as settings_fp:
     settings = json.load(settings_fp)
 
 tokenizer_pickle = settings['tokenizer_pickle'] if 'tokenizer_pickle' in settings.keys() else None
+tokenizer = None
 if tokenizer_pickle is not None:
     tokenizer = nltk.data.load(tokenizer_pickle)
 else:
@@ -37,7 +38,7 @@ else:
 input_file = settings['input_file'] if 'input_file' in settings.keys() else None
 full_input_file = None
 if input_file is not None:
-    full_input_file = input_folder + input_file  # what about /?
+    full_input_file = input_folder + input_file if input_folder.endswith('/') else input_folder + '/' + input_file
 else:
     print('input file name is missing from settings. Quitting.')
     quit(-1)
