@@ -46,7 +46,7 @@ if not exists(full_input_file):
     print('input file {} is missing. Quitting.'.format(full_input_file))
     quit(-1)
 
-parsed = parser.from_file(input_file)
+parsed = parser.from_file(full_input_file)
 
 print('our content is a string of length {}'.format(len(parsed['content'])))
 content = parsed['content']
