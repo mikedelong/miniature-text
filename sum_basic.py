@@ -26,18 +26,19 @@ def highest_probability_word(arg):
 
 # Find sentences containing highest probability word
 def sentences_with_highest_pword(arg_word_probability_list, arg_sentences):
-    subset_sent = []
-    highest_pword = highest_probability_word(arg_word_probability_list)
+    highest = highest_probability_word(arg_word_probability_list)
     i = 0
-    for s in arg_sentences:
-        if (highest_pword in s):
+    # todo use a comprehension here?
+    result = []
+    for sentence in arg_sentences:
+        if highest in sentence:
             # Add weight of s to subset_sent
             tmp = weighted[i]
-            subset_sent.append(tmp)
+            result.append(tmp)
         else:
-            subset_sent.append(0)
+            result.append(0)
         i += 1
-    return subset_sent
+    return result
 
 
 # Find highest scoring sentence from a subset
