@@ -7,11 +7,12 @@ Created on Thu Apr  4 11:03:32 2019
 
 # http://basicodingfordummies.blogspot.com/2015/12/sumbasic-algorithm-for-multi-document.html
 
+from string import punctuation
+from time import time
+
 from nltk.data import load
 from nltk.tokenize import word_tokenize
-from string import punctuation
 from tika import parser
-from time import time
 
 '''
 100-word summaries using SumBasic
