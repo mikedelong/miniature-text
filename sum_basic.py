@@ -55,7 +55,8 @@ def highest_scoring_sentence(arg_subset):
 # Calculate weight of each sentence
 # weight = average probability of words in sentence
 def cal_weight(arg_sentences, arg_word_probability, verbose=0):
-    weight_sentences = {}
+    result = {}
+    # todo use enumerate here
     i = 0
     for sentence in arg_sentences:
         word_count: int = len(sentence.split())
@@ -67,17 +68,17 @@ def cal_weight(arg_sentences, arg_word_probability, verbose=0):
                 if verbose > 0:
                     print('warning: we have no word probability for word {}'.format(local_word))
         sum_up = float(sum_up) / float(word_count)
-        weight_sentences[i] = sum_up
+        result[i] = sum_up
         i += 1
-    return weight_sentences
+    return result
 
 
 # Recalculate weight of each word in chosen sentence
 # pnew = pold*pold
-def recal_weight(chosen_sentence, wordprob):
-    wordprob_new = wordprob
-    for w in chosen_sentence.split():
-        wordprob_new[w] = wordprob[w] * wordprob[w]
+def recalculate_weight(arg_sentence, arg_word_probability):
+    wordprob_new = arg_word_probability
+    for local_word in arg_sentence.split():
+        wordprob_new[local_word] = arg_word_probability[local_word] * arg_word_probability[local_word]
     return wordprob_new
 
 
