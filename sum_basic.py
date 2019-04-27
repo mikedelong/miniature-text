@@ -20,16 +20,16 @@ from tika import parser
 
 
 # Find word with highest probability in text
-def highest_probability_word(wordprob_list):
-    return wordprob_list[0][0]
+def highest_probability_word(arg):
+    return arg[0][0]
 
 
 # Find sentences containing highest probability word
-def sentences_with_highest_pword(wordprob_list, sentences):
+def sentences_with_highest_pword(arg_word_probability_list, arg_sentences):
     subset_sent = []
-    highest_pword = highest_probability_word(wordprob_list)
+    highest_pword = highest_probability_word(arg_word_probability_list)
     i = 0
-    for s in sentences:
+    for s in arg_sentences:
         if (highest_pword in s):
             # Add weight of s to subset_sent
             tmp = weighted[i]
