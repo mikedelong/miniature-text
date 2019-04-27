@@ -42,14 +42,14 @@ def sentences_with_highest_pword(arg_word_probability_list, arg_sentences):
 
 
 # Find highest scoring sentence from a subset
-def highest_scoring_sentence(subset_sent):
-    max_val, j, max_pos = 0, 0, 0
-    for i in subset_sent:
-        if (i > max_val):
-            max_val = i
-            max_pos = j
+def highest_scoring_sentence(arg_subset):
+    result_value, j, result_position = 0, 0, 0
+    for i in arg_subset:
+        if i > result_value:
+            result_value = i
+            result_position = j
         j += 1
-    return (max_val, max_pos)
+    return result_value, result_position
 
 
 # Calculate weight of each sentence
