@@ -88,10 +88,9 @@ our_punctuation = list(punctuation) + ['\n', '\r', '\r\n']
    containing the words in the given string '''
 
 
-def remove_punctuations(summary):
-    tokenized_summary = word_tokenize(summary)
-    result = [word for word in tokenized_summary if word not in our_punctuation]
-    return result
+def remove_punctuations(arg_summary):
+    local_summary = word_tokenize(arg_summary)
+    return [local_word for local_word in local_summary if local_word not in our_punctuation]
 
 
 if __name__ == '__main__':
