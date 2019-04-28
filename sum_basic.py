@@ -142,15 +142,15 @@ if __name__ == '__main__':
     print('our content has {} tokens and {} tokens without punctuation'.format(N, N1))
 
     # Storing probability of each word
-    wordprob = {}
+    word_probability = {}
     for word in split_contents:
-        if word not in wordprob:
-            wordprob[word] = 1 / float(N)
+        if word not in word_probability:
+            word_probability[word] = 1 / float(N)
         else:
-            wordprob[word] += 1 / float(N)
+            word_probability[word] += 1 / float(N)
 
     # Sorting by maximum probability of words
-    wordprob_list = sorted(wordprob.items(), key=lambda x: x[1], reverse=True)  # sort by 2nd value, v
+    word_probability_list = sorted(word_probability.items(), key=lambda x: x[1], reverse=True)  # sort by 2nd value, v
 
     # STEP 2
     # Dividing text into sentences
@@ -162,10 +162,10 @@ if __name__ == '__main__':
     # Loop till number of words in the summary is less than 100
     while len(remove_punctuations(summary)) <= 200:
 
-        weighted = cal_weight(sentences, wordprob)
+        weighted = cal_weight(sentences, word_probability)
         # STEP 3: Pick the best scoring sentence {that contains the highest probability word}
         # 3.1: Pick sentences that contain the highest probability word
-        subset_sent = sentences_with_highest_pword(wordprob_list, sentences)
+        subset_sent = sentences_with_highest_pword(word_probability_list, sentences)
         # 3.2: Pick the highest scoring sentence from 3.1
         max_val, max_pos = highest_scoring_sentence(subset_sent)
 
@@ -175,9 +175,9 @@ if __name__ == '__main__':
         sentences.remove(chosen_sentence)
         if max_pos in weighted:
             del weighted[max_pos]
-        wordprob_list = wordprob.items()
+        word_probability_list = word_probability.items()
         # Resorting the list of word probabilities
-        wordprob_list = sorted(wordprob_list, key=lambda x: x[1], reverse=True)
+        word_probability_list = sorted(word_probability_list, key=lambda x: x[1], reverse=True)
 
     t3 = time()
     print('Here is our summary:\n{}'.format(summary.strip()))
