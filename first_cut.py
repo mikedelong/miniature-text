@@ -5,7 +5,7 @@ Created on Mon Apr  1 12:13:06 2019
 @author: mikedelong
 """
 
-import json
+from json import load
 from os.path import exists
 
 import matplotlib.pyplot as plt
@@ -16,7 +16,7 @@ from tika import parser
 
 settings_file = 'first_cut.json'
 with open(settings_file, 'r') as settings_fp:
-    settings = json.load(settings_fp)
+    settings = load(settings_fp)
 
 tokenizer_pickle = settings['tokenizer_pickle'] if 'tokenizer_pickle' in settings.keys() else None
 tokenizer = None
