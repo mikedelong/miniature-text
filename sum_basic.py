@@ -14,6 +14,9 @@ from nltk.data import load
 from nltk.tokenize import word_tokenize
 from tika import parser
 
+from json import load as json_load
+from os.path import exists
+
 '''
 100-word summaries using SumBasic
 '''
@@ -100,9 +103,33 @@ if __name__ == '__main__':
     #    fp = open(file_name)
     #    contents = fp.read()
 
+    settings_file = 'sum_basic.json'
+    with open(settings_file, 'r') as settings_fp:
+        settings = json_load(settings_fp)
+
+    input_folder = settings['input_folder'] if 'input_folder' in settings.keys() else None
+    if input_folder is not None:
+        if not exists(input_folder):
+            print('input data folder does not exist. Quitting.')
+            quit(-1)
+    else:
+        print('input folder name is missing from settings. Quitting.')
+        quit(-1)
+
+    input_file = settings['input_file'] if 'input_file' in settings.keys() else None
+    full_input_file = None
+    if input_file is not None:
+        full_input_file = input_folder + input_file if input_folder.endswith('/') else input_folder + '/' + input_file
+    else:
+        print('input file name is missing from settings. Quitting.')
+        quit(-1)
+
+    if not exists(full_input_file):
+        print('input file {} is missing. Quitting.'.format(full_input_file))
+        quit(-1)
+
     t0 = time()
-    input_file = './data/911Report.pdf'
-    parsed = parser.from_file(input_file)
+    parsed = parser.from_file(full_input_file)
 
     print('our content has {} characters'.format(len(parsed['content'])))
     contents = parsed['content']
