@@ -58,9 +58,7 @@ def highest_scoring_sentence(arg_subset):
 # weight = average probability of words in sentence
 def cal_weight(arg_sentences, arg_word_probability, verbose=0):
     result = {}
-    # todo use enumerate here
-    i = 0
-    for sentence in arg_sentences:
+    for index, sentence in enumerate(arg_sentences):
         word_count: int = len(sentence.split())
         sum_up = 0
         for local_word in sentence.split():
@@ -70,8 +68,7 @@ def cal_weight(arg_sentences, arg_word_probability, verbose=0):
                 if verbose > 0:
                     print('warning: we have no word probability for word {}'.format(local_word))
         sum_up = float(sum_up) / float(word_count)
-        result[i] = sum_up
-        i += 1
+        result[index] = sum_up
     return result
 
 
