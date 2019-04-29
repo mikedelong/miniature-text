@@ -117,6 +117,8 @@ def rank_sentences(doc, doc_matrix, feature_names, top_n=3):
 
 
 if __name__ == '__main__':
+    # todo: add data pickle
+    # todo: move this data file name to a settings file
     # Load corpus data used to train the TF-IDF Transformer
     data = pickle.load(open('data.pkl', 'rb'))
 
