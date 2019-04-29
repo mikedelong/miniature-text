@@ -39,7 +39,7 @@ def clean_document(arg):
     arg = arg.replace('...', '')
     arg = arg.replace('Mr.', 'Mr').replace('Mrs.', 'Mrs')
 
-    # Remove Ancronymns M.I.T. -> MIT
+    # Remove acronyms M.I.T. -> MIT
     # to help with sentence tokenizing
     arg = merge_acronyms(arg)
 
