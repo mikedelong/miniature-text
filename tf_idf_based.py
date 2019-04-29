@@ -26,7 +26,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 NOUNS = ['NN', 'NNS', 'NNP', 'NNPS']
 
 
-def clean_document(document):
+def clean_document(arg):
     """Cleans document by removing unnecessary punctuation. It also removes
     any extra periods and merges acronyms to prevent the tokenizer from
     splitting a false sentence
@@ -34,18 +34,18 @@ def clean_document(document):
     """
     # Remove all characters outside of Alpha Numeric
     # and some punctuation
-    document = re.sub('[^A-Za-z .-]+', ' ', document)
-    document = document.replace('-', '')
-    document = document.replace('...', '')
-    document = document.replace('Mr.', 'Mr').replace('Mrs.', 'Mrs')
+    arg = re.sub('[^A-Za-z .-]+', ' ', arg)
+    arg = arg.replace('-', '')
+    arg = arg.replace('...', '')
+    arg = arg.replace('Mr.', 'Mr').replace('Mrs.', 'Mrs')
 
     # Remove Ancronymns M.I.T. -> MIT
     # to help with sentence tokenizing
-    document = merge_acronyms(document)
+    arg = merge_acronyms(arg)
 
     # Remove extra whitespace
-    document = ' '.join(document.split())
-    return document
+    arg = ' '.join(arg.split())
+    return arg
 
 
 def remove_stop_words(document):
