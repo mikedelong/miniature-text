@@ -120,7 +120,7 @@ if __name__ == '__main__':
     # todo: add data pickle
     # todo: move this data file name to a settings file
     # Load corpus data used to train the TF-IDF Transformer
-    data = pickle.load(open('data.pkl', 'rb'))
+    data = pickle.load(open('./data/data.pkl', 'rb'))
 
     # Load the document you wish to summarize
     title = ''
