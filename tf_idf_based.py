@@ -48,10 +48,10 @@ def clean_document(arg):
     return arg
 
 
-def remove_stop_words(document):
+def remove_stop_words(arg):
     """Returns document without stop words"""
-    document = ' '.join([i for i in document.split() if i not in stop])
-    return document
+    arg = ' '.join([i for i in arg.split() if i not in stop])
+    return arg
 
 
 def similarity_score(t, s):
@@ -120,7 +120,8 @@ if __name__ == '__main__':
     # todo: add data pickle
     # todo: move this data file name to a settings file
     # Load corpus data used to train the TF-IDF Transformer
-    data = pickle.load(open('./data/data.pkl', 'rb'))
+    # data = pickle.load(open('./data/data.pkl', 'rb'))
+    data = list(nltk.corpus.gutenberg.words('austen-emma.txt'))
 
     # Load the document you wish to summarize
     title = ''
