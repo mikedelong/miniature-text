@@ -20,6 +20,15 @@ from nltk.corpus import stopwords
 stop = stopwords.words('english')
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
+from json import load as json_load
+from os.path import exists
+from string import punctuation
+from time import time
+
+from nltk.data import load
+from nltk.tokenize import word_tokenize
+from tika import parser
+
 # Noun Part of Speech Tags used by NLTK
 # More can be found here
 # http://www.winwaed.com/blog/2011/11/08/part-of-speech-tags/
@@ -121,11 +130,42 @@ if __name__ == '__main__':
     # todo: move this data file name to a settings file
     # Load corpus data used to train the TF-IDF Transformer
     # data = pickle.load(open('./data/data.pkl', 'rb'))
-    data = list(nltk.corpus.gutenberg.words('austen-emma.txt'))
+    # data = list(nltk.corpus.gutenberg.words('austen-emma.txt'))
+    data = ['this and that', 'the other thing']
 
     # Load the document you wish to summarize
     title = ''
     document = ''
+
+    settings_file = 'sum_basic.json'
+    with open(settings_file, 'r') as settings_fp:
+        settings = json_load(settings_fp)
+
+    input_folder = settings['input_folder'] if 'input_folder' in settings.keys() else None
+    if input_folder is not None:
+        if not exists(input_folder):
+            print('input data folder does not exist. Quitting.')
+            quit(-1)
+    else:
+        print('input folder name is missing from settings. Quitting.')
+        quit(-1)
+
+    input_file = settings['input_file'] if 'input_file' in settings.keys() else None
+    full_input_file = None
+    if input_file is not None:
+        full_input_file = input_folder + input_file if input_folder.endswith('/') else input_folder + '/' + input_file
+    else:
+        print('input file name is missing from settings. Quitting.')
+        quit(-1)
+
+    if not exists(full_input_file):
+        print('input file {} is missing. Quitting.'.format(full_input_file))
+        quit(-1)
+
+    t0 = time()
+    parsed = parser.from_file(full_input_file)
+
+    document = parsed['content']
 
     cleaned_document = clean_document(document)
     doc = remove_stop_words(cleaned_document)
