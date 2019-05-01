@@ -9,7 +9,7 @@ Created on Fri Apr  5 10:58:14 2019
 
 # import os
 import re
-import pickle
+
 import nltk
 # import numpy as np
 # import datetime
@@ -22,11 +22,8 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
 from json import load as json_load
 from os.path import exists
-from string import punctuation
 from time import time
 
-from nltk.data import load
-from nltk.tokenize import word_tokenize
 from tika import parser
 
 # Noun Part of Speech Tags used by NLTK
