@@ -128,6 +128,7 @@ if __name__ == '__main__':
     # Load corpus data used to train the TF-IDF Transformer
     # data = pickle.load(open('./data/data.pkl', 'rb'))
     # data = list(nltk.corpus.gutenberg.words('austen-emma.txt'))
+    # todo use a real corpus here
     data = ['this and that', 'the other thing']
 
     # Load the document you wish to summarize
@@ -159,6 +160,7 @@ if __name__ == '__main__':
         print('input file {} is missing. Quitting.'.format(full_input_file))
         quit(-1)
 
+    # todo time the major sections of the code and report incremental timing results
     t0 = time()
     parsed = parser.from_file(full_input_file)
 
@@ -191,7 +193,11 @@ if __name__ == '__main__':
 
     # Get Top Ranking Sentences and join them as a summary
     top_sents = rank_sentences(doc, doc_matrix, feature_names)
+    # todo report the summary sentences on separate lines
+    # todo report scores(?) for the summary sentences
     summary = '.'.join([cleaned_document.split('.')[i]
                         for i in [pair[0] for pair in top_sents]])
     summary = ' '.join(summary.split())
     print(summary)
+    # todo report total time
+
