@@ -134,7 +134,7 @@ if __name__ == '__main__':
     title = ''
     document = ''
 
-    settings_file = 'sum_basic.json'
+    settings_file = 'tf_idf_based.json'
     with open(settings_file, 'r') as settings_fp:
         settings = json_load(settings_fp)
 
