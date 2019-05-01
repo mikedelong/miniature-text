@@ -171,8 +171,10 @@ if __name__ == '__main__':
     doc = remove_stop_words(cleaned_document)
 
     # Merge corpus data and new document data
-    data = [' '.join(document) for document in data]
-    train_data = set(data + [doc])
+    # data = [' '.join(document) for document in data]
+    data = ' '.join(data)
+
+    train_data = set(data.split() + doc.split())
 
     # Fit and Transform the term frequencies into a vector
     count_vect = CountVectorizer()
