@@ -9,6 +9,9 @@ Created on Fri Apr  5 10:58:14 2019
 
 # import os
 import re
+from json import load as json_load
+from os.path import exists
+from time import time
 
 import nltk
 # import numpy as np
@@ -16,15 +19,11 @@ import nltk
 # import xml.etree.ElementTree as ET
 # from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from tika import parser
 
 stop = stopwords.words('english')
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-
-from json import load as json_load
-from os.path import exists
-from time import time
-
-from tika import parser
 
 # Noun Part of Speech Tags used by NLTK
 # More can be found here
