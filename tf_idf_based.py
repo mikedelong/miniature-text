@@ -217,5 +217,3 @@ if __name__ == '__main__':
     # todo report total time
     tx = time()
     print('total run time {:5.2f}s'.format(tx - t0))
-
-
