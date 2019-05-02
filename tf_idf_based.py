@@ -123,6 +123,7 @@ def rank_sentences(doc, doc_matrix, feature_names, top_n=3):
 
 
 if __name__ == '__main__':
+    t0 = time()
     # todo: add data pickle
     # todo: move this data file name to a settings file
     # Load corpus data used to train the TF-IDF Transformer
@@ -161,10 +162,12 @@ if __name__ == '__main__':
         quit(-1)
 
     # todo time the major sections of the code and report incremental timing results
-    t0 = time()
+    t1 = time()
+    print('settings parse took {:5.2f}s'.format(t1 - t0))
     parsed = parser.from_file(full_input_file)
-
     document = parsed['content']
+    t2 = time()
+    print('target document read and parse took {:5.2f}s'.format(t2 - t1))
 
     cleaned_document = clean_document(document)
     doc = remove_stop_words(cleaned_document)
