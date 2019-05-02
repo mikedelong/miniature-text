@@ -168,34 +168,46 @@ if __name__ == '__main__':
     document = parsed['content']
     t2 = time()
     print('target document read and parse took {:5.2f}s'.format(t2 - t1))
-
     cleaned_document = clean_document(document)
+    t3 = time()
+    print('document cleaning took {:5.2f}s'.format(t3 - t2))
     doc = remove_stop_words(cleaned_document)
+    t4 = time()
+    print('removing stopwords took {:5.2f}s'.format(t4 - t3))
 
     # Merge corpus data and new document data
     # data = [' '.join(document) for document in data]
     data = ' '.join(data)
-
     train_data = set(data.split() + doc.split())
+    t5 = time()
+    print('creating training data took {:5.2f}s'.format(t5 - t4))
 
     # Fit and Transform the term frequencies into a vector
     count_vect = CountVectorizer()
     count_vect = count_vect.fit(train_data)
     freq_term_matrix = count_vect.transform(train_data)
     feature_names = count_vect.get_feature_names()
+    t6 = time()
+    print('count vectorizer fitting and feature names took {:5.2f}s'.format(t6 - t5))
 
     # Fit and Transform the TfidfTransformer
     tfidf = TfidfTransformer(norm="l2")
     tfidf.fit(freq_term_matrix)
+    t7 = time()
+    print('fitting the TFIDF model took {:5.2f}s'.format(t7 - t6))
 
     # Get the dense tf-idf matrix for the document
     story_freq_term_matrix = count_vect.transform([doc])
     story_tfidf_matrix = tfidf.transform(story_freq_term_matrix)
     story_dense = story_tfidf_matrix.todense()
     doc_matrix = story_dense.tolist()[0]
+    t8 = time()
+    print('making the document matrix took {:5.2f}s'.format(t8 - t7))
 
     # Get Top Ranking Sentences and join them as a summary
     top_sents = rank_sentences(doc, doc_matrix, feature_names)
+    t9 = time()
+    print('ranking sentences took {:5.2f}s'.format(t9 - t8))
     # todo report the summary sentences on separate lines
     # todo report scores(?) for the summary sentences
     summary = '.'.join([cleaned_document.split('.')[i]
@@ -203,4 +215,7 @@ if __name__ == '__main__':
     summary = ' '.join(summary.split())
     print(summary)
     # todo report total time
+    tx = time()
+    print('total run time {:5.2f}s'.format(tx - t0))
+
 
