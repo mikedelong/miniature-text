@@ -130,7 +130,6 @@ gutenberg_file_ids = ['austen-emma.txt', 'austen-persuasion.txt', 'austen-sense.
 
 if __name__ == '__main__':
     t0 = time()
-    # todo: add data pickle
     # todo: move this data file name to a settings file
     # Load corpus data used to train the TF-IDF Transformer
     data = list(nltk.corpus.gutenberg.words('austen-emma.txt'))
