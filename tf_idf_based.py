@@ -214,6 +214,5 @@ if __name__ == '__main__':
                         for i in [pair[0] for pair in top_sents]])
     summary = ' '.join(summary.split())
     print(summary)
-    # todo report total time
     tx = time()
     print('total run time {:5.2f}s'.format(tx - t0))
