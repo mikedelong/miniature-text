@@ -131,13 +131,25 @@ gutenberg_file_ids = ['austen-emma.txt', 'austen-persuasion.txt', 'austen-sense.
 
 if __name__ == '__main__':
     t0 = time()
-    # todo: move this data file name to a settings file
-    # Load corpus data used to train the TF-IDF Transformer
-    data = list(nltk.corpus.gutenberg.words('austen-emma.txt'))
-
     settings_file = 'tf_idf_based.json'
     with open(settings_file, 'r') as settings_fp:
         settings = json_load(settings_fp)
+
+    nltk_corpus = settings['nltk_corpus'] if 'nltk_corpus' in settings.keys() else None
+    if nltk_corpus is not None:
+        if nltk_corpus == 'gutenberg':
+            gutenberg_file_id = settings['gutenberg_file_id'] if 'gutenberg_file_id' in settings.keys() else None
+            if gutenberg_file_id is not None and gutenberg_file_id in gutenberg_file_ids:
+                data = list(nltk.corpus.gutenberg.words(gutenberg_file_id))
+            else:
+                print('nltk/gutenberg corpus file_id is missing from settings. Quitting.')
+                quit(-1)
+        else:
+            print('setting {} must be {}. Quitting.'.format('nltk_corpus', 'gutenberg'))
+            quit(-1)
+    else:
+        print('nltk_corpus is missing from settings. Quitting.')
+        quit(-1)
 
     input_folder = settings['input_folder'] if 'input_folder' in settings.keys() else None
     if input_folder is not None:
