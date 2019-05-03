@@ -135,9 +135,6 @@ if __name__ == '__main__':
     # Load corpus data used to train the TF-IDF Transformer
     data = list(nltk.corpus.gutenberg.words('austen-emma.txt'))
 
-    # Load the document you wish to summarize
-    document = None
-
     settings_file = 'tf_idf_based.json'
     with open(settings_file, 'r') as settings_fp:
         settings = json_load(settings_fp)
@@ -165,6 +162,7 @@ if __name__ == '__main__':
 
     t1 = time()
     print('settings parse took {:5.2f}s'.format(t1 - t0))
+    # Load the document you wish to summarize
     parsed = parser.from_file(full_input_file)
     document = parsed['content']
     t2 = time()
