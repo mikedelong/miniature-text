@@ -136,8 +136,7 @@ if __name__ == '__main__':
     data = list(nltk.corpus.gutenberg.words('austen-emma.txt'))
 
     # Load the document you wish to summarize
-    title = ''
-    document = ''
+    document = None
 
     settings_file = 'tf_idf_based.json'
     with open(settings_file, 'r') as settings_fp:
