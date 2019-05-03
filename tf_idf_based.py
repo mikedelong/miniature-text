@@ -191,14 +191,14 @@ if __name__ == '__main__':
     print('count vectorizer fitting and feature names took {:5.2f}s'.format(t6 - t5))
 
     # Fit and Transform the TfidfTransformer
-    tfidf = TfidfTransformer(norm="l2")
-    tfidf.fit(freq_term_matrix)
+    model = TfidfTransformer(norm="l2")
+    model.fit(freq_term_matrix)
     t7 = time()
     print('fitting the TFIDF model took {:5.2f}s'.format(t7 - t6))
 
     # Get the dense tf-idf matrix for the document
     story_freq_term_matrix = count_vect.transform([doc])
-    story_tfidf_matrix = tfidf.transform(story_freq_term_matrix)
+    story_tfidf_matrix = model.transform(story_freq_term_matrix)
     story_dense = story_tfidf_matrix.todense()
     doc_matrix = story_dense.tolist()[0]
     t8 = time()
