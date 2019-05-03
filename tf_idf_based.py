@@ -162,7 +162,6 @@ if __name__ == '__main__':
         print('input file {} is missing. Quitting.'.format(full_input_file))
         quit(-1)
 
-    # todo time the major sections of the code and report incremental timing results
     t1 = time()
     print('settings parse took {:5.2f}s'.format(t1 - t0))
     parsed = parser.from_file(full_input_file)
