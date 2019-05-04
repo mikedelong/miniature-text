@@ -84,7 +84,7 @@ def merge_acronyms(s):
 
 
 # todo fix these warnings
-def rank_sentences(doc, doc_matrix, feature_names, top_n=3):
+def rank_sentences(arg_doc, doc_matrix, feature_names, top_n=3):
     """Returns top_n sentences. Theses sentences are then used as summary
     of document.
 
@@ -97,7 +97,7 @@ def rank_sentences(doc, doc_matrix, feature_names, top_n=3):
     top_n : number of sentences to return
 
     """
-    sents = nltk.sent_tokenize(doc)
+    sents = nltk.sent_tokenize(arg_doc)
     sentences = [nltk.word_tokenize(sent) for sent in sents]
     sentences = [[w for w in sent if nltk.pos_tag([w])[0][1] in NOUNS]
                  for sent in sentences]
