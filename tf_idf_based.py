@@ -83,7 +83,6 @@ def merge_acronyms(s):
     return s
 
 
-# todo fix these warnings
 def rank_sentences(arg_doc, arg_matrix, arg_features, top_n=3):
     """Returns top_n sentences. Theses sentences are then used as summary
     of document.
