@@ -84,7 +84,7 @@ def merge_acronyms(s):
 
 
 # todo fix these warnings
-def rank_sentences(arg_doc, doc_matrix, feature_names, top_n=3):
+def rank_sentences(arg_doc, arg_matrix, feature_names, top_n=3):
     """Returns top_n sentences. Theses sentences are then used as summary
     of document.
 
@@ -101,12 +101,12 @@ def rank_sentences(arg_doc, doc_matrix, feature_names, top_n=3):
     sentences = [nltk.word_tokenize(sent) for sent in sents]
     sentences = [[w for w in sent if nltk.pos_tag([w])[0][1] in NOUNS]
                  for sent in sentences]
-    tfidf_sent = [[doc_matrix[feature_names.index(w.lower())]
+    tfidf_sent = [[arg_matrix[feature_names.index(w.lower())]
                    for w in sent if w.lower() in feature_names]
                   for sent in sentences]
 
     # Calculate Sentence Values
-    doc_val = sum(doc_matrix)
+    doc_val = sum(arg_matrix)
     sent_values = [sum(sent) / doc_val for sent in tfidf_sent]
 
     # Apply Similariy Score Weightings
