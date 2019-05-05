@@ -218,10 +218,6 @@ if __name__ == '__main__':
     top_sentences = rank_sentences(doc, doc_matrix, feature_names, top_n=10)
     t9 = time()
     print('ranking sentences took {:5.2f}s'.format(t9 - t8))
-    # todo report the summary sentences on separate lines
-    # todo report scores(?) for the summary sentences
-    # summary = '.\n'.join([cleaned_document.split('.')[i]
-    #                       for i in [pair[0] for pair in top_sentences]])
     for pair in top_sentences:
         print('{} {}'.format(pair[1], '.\n'.join([cleaned_document.split('.')[pair[0]]])))
     tx = time()
