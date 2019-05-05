@@ -220,9 +220,9 @@ if __name__ == '__main__':
     print('ranking sentences took {:5.2f}s'.format(t9 - t8))
     # todo report the summary sentences on separate lines
     # todo report scores(?) for the summary sentences
-    summary = '.'.join([cleaned_document.split('.')[i]
-                        for i in [pair[0] for pair in top_sentences]])
-    summary = ' '.join(summary.split())
-    print(summary)
+    # summary = '.\n'.join([cleaned_document.split('.')[i]
+    #                       for i in [pair[0] for pair in top_sentences]])
+    for pair in top_sentences:
+        print('{} {}'.format(pair[1], '.\n'.join([cleaned_document.split('.')[pair[0]]])))
     tx = time()
     print('total run time {:5.2f}s'.format(tx - t0))
