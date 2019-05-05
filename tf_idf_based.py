@@ -215,7 +215,7 @@ if __name__ == '__main__':
     print('making the document matrix took {:5.2f}s'.format(t8 - t7))
 
     # Get Top Ranking Sentences and join them as a summary
-    top_sentences = rank_sentences(doc, doc_matrix, feature_names, top_n=10)
+    top_sentences = rank_sentences(doc, doc_matrix, feature_names, top_n=20)
     t9 = time()
     print('ranking sentences took {:5.2f}s'.format(t9 - t8))
     for pair in top_sentences:
