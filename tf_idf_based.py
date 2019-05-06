@@ -171,6 +171,12 @@ if __name__ == '__main__':
         print('input file {} is missing. Quitting.'.format(full_input_file))
         quit(-1)
 
+    top_n = settings['top_n'] if 'top_n' in settings.keys() else None
+    if top_n is not None:
+        top_n = int(top_n)
+    else:
+        print('sentences to report missing from settings. Will report all sentences.')
+
     t1 = time()
     print('settings parse took {:5.2f}s'.format(t1 - t0))
     # Load the document you wish to summarize
@@ -216,7 +222,7 @@ if __name__ == '__main__':
 
     # Get Top Ranking Sentences and join them as a summary
     # todo move the top_n to a setting
-    top_sentences = rank_sentences(doc, doc_matrix, feature_names, top_n=20)
+    top_sentences = rank_sentences(doc, doc_matrix, feature_names, top_n=top_n)
     t9 = time()
     print('ranking sentences took {:5.2f}s'.format(t9 - t8))
     for pair in top_sentences:
