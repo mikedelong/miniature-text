@@ -171,9 +171,9 @@ if __name__ == '__main__':
         print('input file {} is missing. Quitting.'.format(full_input_file))
         quit(-1)
 
-    top_n = settings['top_n'] if 'top_n' in settings.keys() else None
-    if top_n is not None:
-        top_n = int(top_n)
+    summary_size = settings['top_n'] if 'top_n' in settings.keys() else None
+    if summary_size is not None:
+        summary_size = int(summary_size)
     else:
         print('sentences to report missing from settings. Will report all sentences.')
 
@@ -221,7 +221,7 @@ if __name__ == '__main__':
     print('making the document matrix took {:5.2f}s'.format(t8 - t7))
 
     # Get Top Ranking Sentences and join them as a summary
-    top_sentences = rank_sentences(doc, doc_matrix, feature_names, top_n=top_n)
+    top_sentences = rank_sentences(doc, doc_matrix, feature_names, top_n=summary_size)
     t9 = time()
     print('ranking sentences took {:5.2f}s'.format(t9 - t8))
     for pair in top_sentences:
