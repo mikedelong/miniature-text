@@ -115,7 +115,7 @@ def rank_sentences(arg_doc, arg_matrix, arg_features, top_n=3):
     # Apply Position Weights
     # ranked_sents = [sent * (i / len(sent_values)) for i, sent in enumerate(sent_values)]
 
-    ranked_sents = [pair for pair in zip(range(len(sent_values)), sent_values)]
+    ranked_sents = [item for item in zip(range(len(sent_values)), sent_values)]
     ranked_sents = sorted(ranked_sents, key=lambda x: x[1] * -1)
 
     return ranked_sents[:top_n]
