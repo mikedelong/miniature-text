@@ -171,7 +171,7 @@ if __name__ == '__main__':
         print('input file {} is missing. Quitting.'.format(full_input_file))
         quit(-1)
 
-    summary_size = settings['top_n'] if 'top_n' in settings.keys() else None
+    summary_size = settings['summary_size'] if 'summary_size' in settings.keys() else None
     if summary_size is not None:
         summary_size = int(summary_size)
     else:
