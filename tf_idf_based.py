@@ -207,7 +207,7 @@ if __name__ == '__main__':
     print('count vectorizer fitting and feature names took {:5.2f}s'.format(t6 - t5))
 
     # Fit and Transform the TfidfTransformer
-    model = TfidfTransformer(norm="l2")
+    model = TfidfTransformer(norm='l2')
     model.fit(freq_term_matrix)
     t7 = time()
     print('fitting the TFIDF model took {:5.2f}s'.format(t7 - t6))
