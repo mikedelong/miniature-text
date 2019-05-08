@@ -192,7 +192,6 @@ if __name__ == '__main__':
     print('removing stopwords took {:5.2f}s'.format(t4 - t3))
 
     # Merge corpus data and new document data
-    # data = [' '.join(document) for document in data]
     data = ' '.join(data)
     train_data = set(data.split() + doc.split())
     t5 = time()
