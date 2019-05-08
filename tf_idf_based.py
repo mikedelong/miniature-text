@@ -134,6 +134,7 @@ if __name__ == '__main__':
     with open(settings_file, 'r') as settings_fp:
         settings = json_load(settings_fp)
 
+    data = list()
     nltk_corpus = settings['nltk_corpus'] if 'nltk_corpus' in settings.keys() else None
     if nltk_corpus is not None:
         if nltk_corpus == 'gutenberg':
