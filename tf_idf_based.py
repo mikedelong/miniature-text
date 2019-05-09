@@ -228,3 +228,5 @@ if __name__ == '__main__':
         print('{} {}'.format(pair[1], '.\n'.join([cleaned_document.split('.')[pair[0]]])))
     tx = time()
     print('total run time {:5.2f}s'.format(tx - t0))
+
+    # todo graph the whole tdidf curve
