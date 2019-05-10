@@ -14,10 +14,6 @@ from os.path import exists
 from time import time
 
 import nltk
-# import numpy as np
-# import datetime
-# import xml.etree.ElementTree as ET
-# from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
