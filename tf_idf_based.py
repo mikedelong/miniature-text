@@ -55,19 +55,19 @@ def remove_stop_words(arg):
     return arg
 
 
+# todo think about caching the t_tokens instead of regenerating them
 def similarity_score(t, s):
     """Returns a similarity score for a given sentence.
 
-    similarity score = the total number of tokens in a sentence that exits
+    similarity score = the total number of tokens in a sentence that exist
                         within the title / total words in title
 
     """
-    t = remove_stop_words(t.lower())
-    s = remove_stop_words(s.lower())
-    t_tokens, s_tokens = t.split(), s.split()
-    similar = [w for w in s_tokens if w in t_tokens]
-    score = (len(similar) * 0.1) / len(t_tokens)
-    return score
+    t_tokens = remove_stop_words(t.lower()).split()
+    s_tokens = remove_stop_words(s.lower()).split()
+    similar = [1 for word in s_tokens if word in t_tokens]
+    result = float(sum(similar)) / (10.0 * float(len(t_tokens)))
+    return result
 
 
 def merge_acronyms(s):
