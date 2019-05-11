@@ -70,13 +70,15 @@ def similarity_score(t, s):
     return result
 
 
-def merge_acronyms(s):
+acronym_regex = re.compile(r'(?:(?<=\.|\s)[A-Z]\.)+')
+
+
+def merge_acronyms(arg):
     """Merges all acronyms in a given sentence. For example M.I.T -> MIT"""
-    r = re.compile(r'(?:(?<=\.|\s)[A-Z]\.)+')
-    acronyms = r.findall(s)
-    for a in acronyms:
-        s = s.replace(a, a.replace('.', ''))
-    return s
+    acronyms = acronym_regex.findall(arg)
+    for acronyms in acronyms:
+        arg = arg.replace(acronyms, acronyms.replace('.', ''))
+    return arg
 
 
 def rank_sentences(arg_doc, arg_matrix, arg_features, top_n=3):
