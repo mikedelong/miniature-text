@@ -100,17 +100,13 @@ def rank_sentences(arg_sentences, arg_matrix, arg_features, top_n=3):
     top_n : number of sentences to return
 
     """
-    # sents = nltk.sent_tokenize(arg_doc)
-    # sentences = [nltk.word_tokenize(sent) for sent in sents]
-    sentences = [[w for w in sent if nltk.pos_tag([w])[0][1] in NOUNS]
-                 for sent in arg_sentences]
-    tfidf_sent = [[arg_matrix[arg_features.index(w.lower())]
-                   for w in sent if w.lower() in arg_features]
-                  for sent in sentences]
+    local_sentences = [[w for w in sentence if nltk.pos_tag([w])[0][1] in NOUNS] for sentence in arg_sentences]
+    tdidf_sentences = [[arg_matrix[arg_features.index(word.lower())] for word in sentence if word.lower()
+                        in arg_features] for sentence in local_sentences]
 
     # Calculate Sentence Values
     doc_val = sum(arg_matrix)
-    sent_values = [sum(sent) / doc_val for sent in tfidf_sent]
+    sent_values = [sum(sent) / doc_val for sent in tdidf_sentences]
 
     # Apply Similarity Score Weightings
     #    similarity_scores = [similarity_score(title, sent) for sent in sents]
