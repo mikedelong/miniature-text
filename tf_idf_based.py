@@ -81,7 +81,13 @@ def merge_acronyms(arg):
     return arg
 
 
-def rank_sentences(arg_doc, arg_matrix, arg_features, top_n=3):
+def get_sentences(arg_doc):
+    local_sentences = nltk.sent_tokenize(arg_doc)
+    result = [nltk.word_tokenize(sentence) for sentence in local_sentences]
+    return result
+
+
+def rank_sentences(arg_sentences, arg_matrix, arg_features, top_n=3):
     """Returns top_n sentences. Theses sentences are then used as summary
     of document.
 
@@ -94,10 +100,10 @@ def rank_sentences(arg_doc, arg_matrix, arg_features, top_n=3):
     top_n : number of sentences to return
 
     """
-    sents = nltk.sent_tokenize(arg_doc)
-    sentences = [nltk.word_tokenize(sent) for sent in sents]
+    # sents = nltk.sent_tokenize(arg_doc)
+    # sentences = [nltk.word_tokenize(sent) for sent in sents]
     sentences = [[w for w in sent if nltk.pos_tag([w])[0][1] in NOUNS]
-                 for sent in sentences]
+                 for sent in arg_sentences]
     tfidf_sent = [[arg_matrix[arg_features.index(w.lower())]
                    for w in sent if w.lower() in arg_features]
                   for sent in sentences]
@@ -218,10 +224,14 @@ if __name__ == '__main__':
     t8 = time()
     print('making the document matrix took {:5.2f}s'.format(t8 - t7))
 
-    # Get Top Ranking Sentences and join them as a summary
-    top_sentences = rank_sentences(doc, doc_matrix, feature_names, top_n=summary_size)
+    sentences = get_sentences(doc)
     t9 = time()
-    print('ranking sentences took {:5.2f}s'.format(t9 - t8))
+    print('getting sentences took {:5.2f}s'.format(t9 - t8))
+
+    # Get Top Ranking Sentences and join them as a summary
+    top_sentences = rank_sentences(sentences, doc_matrix, feature_names, top_n=summary_size)
+    tix = time()
+    print('ranking sentences took {:5.2f}s'.format(tix - t9))
     for pair in top_sentences:
         print('{} {}'.format(pair[1], '.\n'.join([cleaned_document.split('.')[pair[0]]])))
     tx = time()
