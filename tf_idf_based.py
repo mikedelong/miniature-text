@@ -126,15 +126,14 @@ def rank_sentences(arg_sentences, arg_matrix, arg_features, top_n=3):
     # Apply Position Weights
     # ranked_sents = [sent * (i / len(sent_values)) for i, sent in enumerate(sent_values)]
 
-    ranked_sents = [item for item in zip(range(len(sent_values)), sent_values)]
+    ranked = [item for item in zip(range(len(sent_values)), sent_values)]
     times.append(time())
     print('rank_sentences: ranking sentences took {:5.2f}s'.format(times[-1] - times[-2]))
-    # ranked_sents = sorted(ranked_sents, key=lambda x: x[1] * -1)
-    ranked_sents = sorted(ranked_sents, key=lambda x: x[1], reverse=True)
+    ranked = sorted(ranked, key=lambda x: x[1], reverse=True)
     times.append(time())
     print('rank_sentences: sorting ranked sentences took {:5.2f}s'.format(times[-1] - times[-2]))
 
-    return ranked_sents[:top_n]
+    return ranked[:top_n]
 
 
 gutenberg_file_ids = ['austen-emma.txt', 'austen-persuasion.txt', 'austen-sense.txt', 'bible-kjv.txt',
