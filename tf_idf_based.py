@@ -100,24 +100,25 @@ def rank_sentences(arg_sentences, arg_matrix, arg_features, top_n=3):
     top_n : number of sentences to return
 
     """
-    lt0 = time()
+    times = list()
+    times.append(time())
     local_sentences = [[word for word in sentence if nltk.pos_tag([word])[0][1] in NOUNS] for sentence in arg_sentences]
-    lt1 = time()
-    print('rank_sentences: marking nouns took {:5.2f}s'.format(lt1 - lt0))
+    times.append(time())
+    print('rank_sentences: marking nouns took {:5.2f}s'.format(times[-1] - times[-2]))
     # todo can we use something from sklearn here?
     tdidf_sentences = [[arg_matrix[arg_features.index(word.lower())] for word in sentence if word.lower()
                         in arg_features] for sentence in local_sentences]
-    lt2 = time()
-    print('rank_sentences: manual TFIDF took {:5.2f}s'.format(lt2 - lt1))
+    times.append(time())
+    print('rank_sentences: manual TFIDF took {:5.2f}s'.format(times[-1] - times[-2]))
 
     # Calculate Sentence Values
     doc_val = sum(arg_matrix)
-    lt3 = time()
-    print('rank_sentences: summing the arg_matrix took {:5.2f}s'.format(lt3 - lt2))
+    times.append(time())
+    print('rank_sentences: summing the arg_matrix took {:5.2f}s'.format(times[-1] - times[-2]))
 
     sent_values = [sum(sent) / doc_val for sent in tdidf_sentences]
-    lt4 = time()
-    print('rank_sentences: calculating sentence values took {:5.2f}s'.format(lt4 - lt3))
+    times.append(time())
+    print('rank_sentences: calculating sentence values took {:5.2f}s'.format(times[-1] - times[-2]))
 
     # Apply Similarity Score Weightings
     #    similarity_scores = [similarity_score(title, sent) for sent in sents]
@@ -127,12 +128,12 @@ def rank_sentences(arg_sentences, arg_matrix, arg_features, top_n=3):
     # ranked_sents = [sent * (i / len(sent_values)) for i, sent in enumerate(sent_values)]
 
     ranked_sents = [item for item in zip(range(len(sent_values)), sent_values)]
-    lt5 = time()
-    print('rank_sentences: ranking sentences took {:5.2f}s'.format(lt5 - lt4))
+    times.append(time())
+    print('rank_sentences: ranking sentences took {:5.2f}s'.format(times[-1] - times[-2]))
     # ranked_sents = sorted(ranked_sents, key=lambda x: x[1] * -1)
     ranked_sents = sorted(ranked_sents, key=lambda x: x[1], reverse=True)
-    lt6 = time()
-    print('rank_sentences: sorting ranked sentences took {:5.2f}s'.format(lt6 - lt5))
+    times.append(time())
+    print('rank_sentences: sorting ranked sentences took {:5.2f}s'.format(times[-1] - times[-2]))
 
     return ranked_sents[:top_n]
 
