@@ -100,8 +100,7 @@ def rank_sentences(arg_sentences, arg_matrix, arg_features, top_n=3):
     top_n : number of sentences to return
 
     """
-    times = list()
-    times.append(time())
+    times = [time()]
     local_sentences = [[word for word in sentence if nltk.pos_tag([word])[0][1] in NOUNS] for sentence in arg_sentences]
     times.append(time())
     print('rank_sentences: marking nouns took {:5.2f}s'.format(times[-1] - times[-2]))
