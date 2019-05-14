@@ -145,7 +145,7 @@ gutenberg_file_ids = ['austen-emma.txt', 'austen-persuasion.txt', 'austen-sense.
 
 if __name__ == '__main__':
     # todo introduce a list of times rather than a bunch of small-scope local variables
-    t0 = time()
+    times = [time()]
     settings_file = 'tf_idf_based.json'
     with open(settings_file, 'r') as settings_fp:
         settings = json_load(settings_fp)
@@ -194,59 +194,59 @@ if __name__ == '__main__':
     else:
         print('sentences to report missing from settings. Will report all sentences.')
 
-    t1 = time()
-    print('settings parse took {:5.2f}s'.format(t1 - t0))
+    times.append(time())
+    print('settings parse took {:5.2f}s'.format(times[-1] - times[-2]))
     # Load the document you wish to summarize
     parsed = parser.from_file(full_input_file)
     document = parsed['content']
-    t2 = time()
-    print('target document read and parse took {:5.2f}s'.format(t2 - t1))
+    times.append(time())
+    print('target document read and parse took {:5.2f}s'.format(times[-1] - times[-2]))
     cleaned_document = clean_document(document)
-    t3 = time()
-    print('document cleaning took {:5.2f}s'.format(t3 - t2))
+    times.append(time())
+    print('document cleaning took {:5.2f}s'.format(times[-1] - times[-2]))
     doc = remove_stop_words(cleaned_document)
-    t4 = time()
-    print('removing stopwords took {:5.2f}s'.format(t4 - t3))
+    times.append(time())
+    print('removing stopwords took {:5.2f}s'.format(times[-1] - times[-2]))
 
     # Merge corpus data and new document data
     data = ' '.join(data)
     train_data = set(data.split() + doc.split())
-    t5 = time()
-    print('creating training data took {:5.2f}s'.format(t5 - t4))
+    times.append(time())
+    print('creating training data took {:5.2f}s'.format(times[-1] - times[-2]))
 
     # Fit and Transform the term frequencies into a vector
     count_vect = CountVectorizer()
     count_vect = count_vect.fit(train_data)
     freq_term_matrix = count_vect.transform(train_data)
     feature_names = count_vect.get_feature_names()
-    t6 = time()
-    print('count vectorizer fitting and feature names took {:5.2f}s'.format(t6 - t5))
+    times.append(time())
+    print('count vectorizer fitting and feature names took {:5.2f}s'.format(times[-1] - times[-2]))
 
     # Fit and Transform the TfidfTransformer
     model = TfidfTransformer(norm='l2')
     model.fit(freq_term_matrix)
-    t7 = time()
-    print('fitting the TFIDF model took {:5.2f}s'.format(t7 - t6))
+    times.append(time())
+    print('fitting the TFIDF model took {:5.2f}s'.format(times[-1] - times[-2]))
 
     # Get the dense tf-idf matrix for the document
     story_freq_term_matrix = count_vect.transform([doc])
     story_tfidf_matrix = model.transform(story_freq_term_matrix)
     story_dense = story_tfidf_matrix.todense()
     doc_matrix = story_dense.tolist()[0]
-    t8 = time()
-    print('making the document matrix took {:5.2f}s'.format(t8 - t7))
+    times.append(time())
+    print('making the document matrix took {:5.2f}s'.format(times[-1] - times[-2]))
 
     sentences = get_sentences(doc)
-    t9 = time()
-    print('getting sentences took {:5.2f}s'.format(t9 - t8))
+    times.append(time())
+    print('getting sentences took {:5.2f}s'.format(times[-1] - times[-2]))
 
     # Get Top Ranking Sentences and join them as a summary
     top_sentences = rank_sentences(sentences, doc_matrix, feature_names, top_n=summary_size)
-    tix = time()
-    print('ranking sentences took {:5.2f}s'.format(tix - t9))
+    times.append(time())
+    print('ranking sentences took {:5.2f}s'.format(times[-1] - times[-2]))
     for pair in top_sentences:
         print('{} {}'.format(pair[1], '.\n'.join([cleaned_document.split('.')[pair[0]]])))
-    tx = time()
-    print('total run time {:5.2f}s'.format(tx - t0))
+    times.append(time())
+    print('total run time {:5.2f}s'.format(times[-1] - times[0]))
 
     # todo graph the whole tdidf curve
