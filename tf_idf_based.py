@@ -17,6 +17,7 @@ import nltk
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
+# from summa import summarizer
 from tika import parser
 
 stop = stopwords.words('english')
@@ -199,6 +200,11 @@ if __name__ == '__main__':
     # Load the document you wish to summarize
     parsed = parser.from_file(full_input_file)
     document = parsed['content']
+
+    # # todo find a ratio where this works
+    # summa_result = summarizer.summarize(parsed['content'], ratio=0.05)
+    # print(summa_result)
+
     times.append(time())
     print('target document read and parse took {:5.2f}s'.format(times[-1] - times[-2]))
     cleaned_document = clean_document(document)
