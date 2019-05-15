@@ -145,7 +145,6 @@ gutenberg_file_ids = ['austen-emma.txt', 'austen-persuasion.txt', 'austen-sense.
                       'shakespeare-macbeth.txt', 'whitman-leaves.txt']
 
 if __name__ == '__main__':
-    # todo introduce a list of times rather than a bunch of small-scope local variables
     times = [time()]
     settings_file = 'tf_idf_based.json'
     with open(settings_file, 'r') as settings_fp:
