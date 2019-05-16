@@ -134,7 +134,7 @@ def rank_sentences(arg_sentences, arg_matrix, arg_features, top_n=3):
     local_times.append(time())
     print('rank_sentences: sorting ranked sentences took {:5.2f}s'.format(local_times[-1] - local_times[-2]))
 
-    return ranked[:top_n]
+    return ranked[:top_n], sent_values
 
 
 gutenberg_file_ids = ['austen-emma.txt', 'austen-persuasion.txt', 'austen-sense.txt', 'bible-kjv.txt',
@@ -246,7 +246,7 @@ if __name__ == '__main__':
     print('getting sentences took {:5.2f}s'.format(times[-1] - times[-2]))
 
     # Get Top Ranking Sentences and join them as a summary
-    top_sentences = rank_sentences(sentences, doc_matrix, feature_names, top_n=summary_size)
+    top_sentences, ranks = rank_sentences(sentences, doc_matrix, feature_names, top_n=summary_size)
     times.append(time())
     print('ranking sentences took {:5.2f}s'.format(times[-1] - times[-2]))
     for pair in top_sentences:
@@ -255,3 +255,4 @@ if __name__ == '__main__':
     print('total run time {:5.2f}s'.format(times[-1] - times[0]))
 
     # todo graph the whole tdidf curve
+    sorted_ranks = sorted(ranks, reverse=True)
