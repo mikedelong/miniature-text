@@ -255,7 +255,6 @@ if __name__ == '__main__':
     times.append(time())
     print('total run time {:5.2f}s'.format(times[-1] - times[0]))
 
-    # todo graph the whole tdidf curve
     sorted_ranks = sorted(ranks, reverse=True)
     plt.plot(sorted_ranks, marker='.', linestyle='none')
     plt.show()
