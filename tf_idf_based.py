@@ -257,5 +257,5 @@ if __name__ == '__main__':
 
     # todo graph the whole tdidf curve
     sorted_ranks = sorted(ranks, reverse=True)
-    plt.plot(sorted_ranks, linestyle='', markerstyle='.')
+    plt.plot(sorted_ranks, linestyle='')
     plt.show()
