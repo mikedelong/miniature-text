@@ -257,4 +257,7 @@ if __name__ == '__main__':
 
     sorted_ranks = sorted(ranks, reverse=True)
     plt.plot(sorted_ranks, marker='.', linestyle='none')
-    plt.show()
+    sorted_ranks_graph_file = './output/tf_idf_based_sorted_ranks.png'
+    print('plotting sentence ranks to {}'.format(sorted_ranks_graph_file))
+    plt.savefig(sorted_ranks_graph_file)
+    quit(0)
