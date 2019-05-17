@@ -268,7 +268,7 @@ if __name__ == '__main__':
     # todo add safety code to be sure the output folder exists
     sorted_ranks = sorted(ranks, reverse=True)
     plt.plot(sorted_ranks, marker='.', linestyle='none')
-    sorted_ranks_graph_file = './output/tf_idf_based_sorted_ranks.png'
+    sorted_ranks_graph_file = output_folder + 'tf_idf_based_sorted_ranks.png'
     print('plotting sentence ranks to {}'.format(sorted_ranks_graph_file))
     plt.savefig(sorted_ranks_graph_file)
     quit(0)
