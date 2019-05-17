@@ -177,6 +177,15 @@ if __name__ == '__main__':
         print('input folder name is missing from settings. Quitting.')
         quit(-1)
 
+    output_folder = settings['output_folder'] if 'output_folder' in settings.keys() else None
+    if output_folder is not None:
+        if not exists(output_folder):
+            print('output data folder does not exist. Quitting.')
+            quit(-1)
+    else:
+        print('output folder name is missing from settings. Quitting.')
+        quit(-1)
+
     input_file = settings['input_file'] if 'input_file' in settings.keys() else None
     full_input_file = None
     if input_file is not None:
