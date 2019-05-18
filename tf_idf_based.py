@@ -208,10 +208,6 @@ if __name__ == '__main__':
     parsed = parser.from_file(full_input_file)
     document = parsed['content']
 
-    # # todo find a ratio where this works
-    # summa_result = summarizer.summarize(parsed['content'], ratio=0.05)
-    # print(summa_result)
-
     times.append(time())
     print('target document read and parse took {:5.2f}s'.format(times[-1] - times[-2]))
     cleaned_document = clean_document(document)
