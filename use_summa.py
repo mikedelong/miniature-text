@@ -2,16 +2,6 @@ from time import time
 
 from summa import summarizer
 
-# todo find a ratio where this works
-document = 'Thursday I went to the grocery store. The grocery store is where I buy groceries. I bought groceries there.'
-text = """Automatic summarization is the process of reducing a text document with a \
-computer program in order to create a summary that retains the most important points \
-of the original document. As the problem of information overload has grown, and as \
-the quantity of data has increased, so has interest in automatic summarization. \
-Technologies that can make a coherent summary take into account variables such as \
-length, writing style and syntax. An example of the use of summarization technology \
-is search engines such as Google. Document summarization is another."""
-
 text = """must be controlled in real time. Examples include systems \
 that interact with humans and robotic systems, such as autonomous \
 vehicles. In this paper, we address real-time planning, \
