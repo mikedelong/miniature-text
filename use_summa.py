@@ -51,18 +51,13 @@ unique to real-time planning. This framework follows the \
 same basic principle of search effort distribution as SafeRTS \
 but does so more efficiently.We empirically demonstrate the \
 potential of the new framework."""
-# summa_result = summarizer.summarize(
-#     ratio=0.35,
-#     text=text,
-# )
-# print(summa_result)
 
 for ratio in range(11):
     float_ratio = float(ratio) / 10.0
     time_before = time()
-    summa_result = summarizer.summarize(ratio=float_ratio, text=text)
+    summary = summarizer.summarize(ratio=float_ratio, text=text)
     time_after = time()
     print('summarize takes {:5.4f}s for ratio {:5.2f} and summary has length {}'.format(time_after - time_before,
-                                                                                        float_ratio, len(summa_result)))
+                                                                                        float_ratio, len(summary)))
 
 quit(0)
