@@ -42,11 +42,14 @@ same basic principle of search effort distribution as SafeRTS \
 but does so more efficiently.We empirically demonstrate the \
 potential of the new framework."""
 
-for ratio in range(11):
+for ratio in range(1, 11):
     float_ratio = float(ratio) / 10.0
     time_before = time()
     summary = summarizer.summarize(ratio=float_ratio, text=text)
-    print(summary)
+    sentences = summary.split('.')
+    sentences = [item.replace('\n', '') + '.' for item in sentences]
+    for item in sentences:
+        print('{} : {}'.format(len(item), item))
     time_after = time()
     print('summarize takes {:5.4f}s for ratio {:5.2f} and summary has length {}'.format(time_after - time_before,
                                                                                         float_ratio, len(summary)))
