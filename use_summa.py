@@ -47,7 +47,7 @@ for ratio in range(1, 11):
     time_before = time()
     summary = summarizer.summarize(ratio=float_ratio, text=text)
     sentences = summary.split('.')
-    sentences = [item.replace('\n', '') + '.' for item in sentences]
+    sentences = [item.replace('\n', '') + '.' for item in sentences if len(item) > 0]
     for item in sentences:
         print('{} : {}'.format(len(item), item))
     time_after = time()
