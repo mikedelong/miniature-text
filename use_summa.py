@@ -46,6 +46,7 @@ for ratio in range(11):
     float_ratio = float(ratio) / 10.0
     time_before = time()
     summary = summarizer.summarize(ratio=float_ratio, text=text)
+    print(summary)
     time_after = time()
     print('summarize takes {:5.4f}s for ratio {:5.2f} and summary has length {}'.format(time_after - time_before,
                                                                                         float_ratio, len(summary)))
