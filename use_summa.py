@@ -8,7 +8,6 @@ with open('./data/clean-1905.03298.txt', 'r') as input_fp:
 
 text = ' '.join(lines)
 
-
 for ratio in range(1, 11):
     float_ratio = float(ratio) / 10.0
     time_before = time()
