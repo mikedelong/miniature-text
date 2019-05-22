@@ -8,7 +8,7 @@ with open('./data/clean-1905.03298.txt', 'r') as input_fp:
 
 text = ' '.join(lines)
 
-for ratio in range(1, 11):
+for ratio in range(1, 4):
     float_ratio = float(ratio) / 10.0
     time_before = time()
     summary = summarizer.summarize(ratio=float_ratio, text=text)
