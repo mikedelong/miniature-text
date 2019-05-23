@@ -9,7 +9,6 @@ with open('./data/clean-1905.03298.txt', 'r') as input_fp:
 
 text = ' '.join(lines)
 
-# todo figure out/fix the mid-sentence period problem
 for ratio in range(1, 4):
     float_ratio = float(ratio) / 10.0
     time_before = time()
