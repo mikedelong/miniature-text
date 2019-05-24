@@ -124,13 +124,12 @@ if __name__ == '__main__':
         print('input file {} is missing. Quitting.'.format(full_input_file))
         quit(-1)
 
-    t0 = time()
+    times = [time()]
     parsed = parser.from_file(full_input_file)
 
     print('our content has {} characters'.format(len(parsed['content'])))
     contents = parsed['content']
-    t1 = time()
-
+    times.append(time())
     split_contents = contents.split()
     # Total number of words in the document
     N = len(split_contents)
@@ -153,7 +152,7 @@ if __name__ == '__main__':
     summary = ''
     tokenizer = load('tokenizers/punkt/english.pickle')
     sentences = tokenizer.tokenize(contents)
-    t2 = time()
+    times.append(time())
 
     # Loop till number of words in the summary is less than 100
     while len(remove_punctuations(summary)) <= 200:
@@ -175,11 +174,11 @@ if __name__ == '__main__':
         # Resorting the list of word probabilities
         word_probability_list = sorted(word_probability_list, key=lambda x: x[1], reverse=True)
 
-    t3 = time()
+    times.append(time())
     print('Here is our summary:\n{}'.format(summary.strip()))
     print('Our summary is {} characters'.format(len(summary)))
     print('Our summary is {} tokens'.format(len(remove_punctuations(summary))))
-    print('raw data load time is {:5.2f}s'.format(t1 - t0))
-    print('tokenize time is {:5.2f}s'.format(t2 - t1))
-    print('summary time is {:5.2f}s'.format(t3 - t2))
-    print('total time is {:5.2f}s'.format(t3 - t0))
+    print('raw data load time is {:5.2f}s'.format(times[1] - times[0]))
+    print('tokenize time is {:5.2f}s'.format(times[2] - times[1]))
+    print('summary time is {:5.2f}s'.format(times[3] - times[2]))
+    print('total time is {:5.2f}s'.format(times[3] - times[0]))
