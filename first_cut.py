@@ -15,73 +15,74 @@ from nltk import word_tokenize
 from tika import parser
 
 settings_file = 'first_cut.json'
-with open(settings_file, 'r') as settings_fp:
-    settings = load(settings_fp)
+if __name__ == '__main__':
+    with open(settings_file, 'r') as settings_fp:
+        settings = load(settings_fp)
 
-tokenizer_pickle = settings['tokenizer_pickle'] if 'tokenizer_pickle' in settings.keys() else None
-tokenizer = None
-if tokenizer_pickle is not None:
-    tokenizer = nltk.data.load(tokenizer_pickle)
-else:
-    print('tokenizer pickle is not defined in settings file {}. Quitting.'.format(settings_file))
-    quit(-1)
-
-input_folder = settings['input_folder'] if 'input_folder' in settings.keys() else None
-if input_folder is not None:
-    if not exists(input_folder):
-        print('input data folder does not exist. Quitting.')
+    tokenizer_pickle = settings['tokenizer_pickle'] if 'tokenizer_pickle' in settings.keys() else None
+    tokenizer = None
+    if tokenizer_pickle is not None:
+        tokenizer = nltk.data.load(tokenizer_pickle)
+    else:
+        print('tokenizer pickle is not defined in settings file {}. Quitting.'.format(settings_file))
         quit(-1)
-else:
-    print('input folder name is missing from settings. Quitting.')
-    quit(-1)
 
-input_file = settings['input_file'] if 'input_file' in settings.keys() else None
-full_input_file = None
-if input_file is not None:
-    full_input_file = input_folder + input_file if input_folder.endswith('/') else input_folder + '/' + input_file
-else:
-    print('input file name is missing from settings. Quitting.')
-    quit(-1)
+    input_folder = settings['input_folder'] if 'input_folder' in settings.keys() else None
+    if input_folder is not None:
+        if not exists(input_folder):
+            print('input data folder does not exist. Quitting.')
+            quit(-1)
+    else:
+        print('input folder name is missing from settings. Quitting.')
+        quit(-1)
 
-if not exists(full_input_file):
-    print('input file {} is missing. Quitting.'.format(full_input_file))
-    quit(-1)
+    input_file = settings['input_file'] if 'input_file' in settings.keys() else None
+    full_input_file = None
+    if input_file is not None:
+        full_input_file = input_folder + input_file if input_folder.endswith('/') else input_folder + '/' + input_file
+    else:
+        print('input file name is missing from settings. Quitting.')
+        quit(-1)
 
-parsed = parser.from_file(full_input_file)
+    if not exists(full_input_file):
+        print('input file {} is missing. Quitting.'.format(full_input_file))
+        quit(-1)
 
-print('our content is a string of length {}'.format(len(parsed['content'])))
-content = parsed['content']
+    parsed = parser.from_file(full_input_file)
 
-sentences = tokenizer.tokenize(content)
-print('before we remove very short sentences we have {} sentences'.format(len(sentences)))
-sentences = [item for item in sentences if len(item) > 1]
-print('after we remove very short sentences we have {} sentences'.format(len(sentences)))
+    print('our content is a string of length {}'.format(len(parsed['content'])))
+    content = parsed['content']
 
-# now we need to count words and do a frequency score for each word
+    sentences = tokenizer.tokenize(content)
+    print('before we remove very short sentences we have {} sentences'.format(len(sentences)))
+    sentences = [item for item in sentences if len(item) > 1]
+    print('after we remove very short sentences we have {} sentences'.format(len(sentences)))
 
-freq_dist = FreqDist()
-for sentence in sentences:
-    for word in word_tokenize(sentence):
-        freq_dist[word.lower()] += 1
+    # now we need to count words and do a frequency score for each word
 
-word_count = freq_dist.N()
-print('our frequency distribution has {} items'.format(len(freq_dist)))
-print('our word count is {}'.format(freq_dist.N()))
+    freq_dist = FreqDist()
+    for sentence in sentences:
+        for word in word_tokenize(sentence):
+            freq_dist[word.lower()] += 1
 
-# now let's traverse our frequency distribution and build our token-probability map
-probabilities = {
-    word: float(freq_dist[word]) / float(word_count) for word in freq_dist}
+    word_count = freq_dist.N()
+    print('our frequency distribution has {} items'.format(len(freq_dist)))
+    print('our word count is {}'.format(freq_dist.N()))
 
-# now we are ready to calculate scores for each sentence
-sentence_scores = {
-    sentence: sum([probabilities[word.lower()] for word in word_tokenize(sentence)])
-    for sentence in sentences}
+    # now let's traverse our frequency distribution and build our token-probability map
+    probabilities = {
+        word: float(freq_dist[word]) / float(word_count) for word in freq_dist}
 
-candidates = {key: value for key, value in sentence_scores.items() if value > 3.0}
+    # now we are ready to calculate scores for each sentence
+    sentence_scores = {
+        sentence: sum([probabilities[word.lower()] for word in word_tokenize(sentence)])
+        for sentence in sentences}
 
-for key, value in candidates.items():
-    print('{:5.2f} {}'.format(value, key[:100]))
+    candidates = {key: value for key, value in sentence_scores.items() if value > 3.0}
 
-values = [value for value in candidates.values()]
-plt.plot(sorted(values))
-plt.show()
+    for key, value in candidates.items():
+        print('{:5.2f} {}'.format(value, key[:100]))
+
+    values = [value for value in candidates.values()]
+    plt.plot(sorted(values))
+    plt.show()
