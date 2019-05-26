@@ -92,14 +92,8 @@ def remove_punctuations(arg_summary):
     return [local_word for local_word in local_summary if local_word not in our_punctuation]
 
 
+settings_file = 'sum_basic.json'
 if __name__ == '__main__':
-    # todo think about moving input identification to a config file
-    #    num_args = len(sys.argv)
-    #    file_name = sys.argv[1]
-    #    fp = open(file_name)
-    #    contents = fp.read()
-
-    settings_file = 'sum_basic.json'
     with open(settings_file, 'r') as settings_fp:
         settings = json_load(settings_fp)
 
