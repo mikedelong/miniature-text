@@ -127,8 +127,7 @@ if __name__ == '__main__':
     split_contents = contents.split()
     # Total number of words in the document
     N = len(split_contents)
-    N1 = len(remove_punctuations(contents))
-    print('our content has {} tokens and {} tokens without punctuation'.format(N, N1))
+    print('our content has {} tokens and {} tokens without punctuation'.format(N, len(remove_punctuations(contents))))
 
     # Storing probability of each word
     word_probability = {}
