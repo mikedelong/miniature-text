@@ -35,8 +35,7 @@ def sentences_with_highest_pword(arg_word_probability_list, arg_sentences):
     for sentence in arg_sentences:
         if highest in sentence:
             # Add weight of s to subset_sent
-            tmp = weighted[i]
-            result.append(tmp)
+            result.append(weighted[i])
         else:
             result.append(0)
         i += 1
