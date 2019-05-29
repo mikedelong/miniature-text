@@ -29,9 +29,7 @@ def highest_probability_word(arg):
 # Find sentences containing highest probability word
 def sentences_with_highest_pword(arg_word_probability_list, arg_sentences):
     highest = highest_probability_word(arg_word_probability_list)
-    result = [
-        weighted[i] if highest in sentence else 0 for i, sentence in enumerate(arg_sentences)
-    ]
+    result = [weighted[i] if highest in sentence else 0 for i, sentence in enumerate(arg_sentences)]
     return result
 
 
