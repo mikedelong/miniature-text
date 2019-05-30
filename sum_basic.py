@@ -46,7 +46,7 @@ def highest_scoring_sentence(arg_subset):
 
 # Calculate weight of each sentence
 # weight = average probability of words in sentence
-def cal_weight(arg_sentences, arg_word_probability, verbose=0):
+def calculate_weight(arg_sentences, arg_word_probability, verbose=0):
     result = {}
     for index, sentence in enumerate(arg_sentences):
         word_count: int = len(sentence.split())
@@ -140,7 +140,7 @@ if __name__ == '__main__':
     # Loop till number of words in the summary is less than 100
     while len(remove_punctuations(summary)) <= 200:
 
-        weighted = cal_weight(sentences, word_probability)
+        weighted = calculate_weight(sentences, word_probability)
         # STEP 3: Pick the best scoring sentence {that contains the highest probability word}
         # 3.1: Pick sentences that contain the highest probability word
         subset_sent = sentences_with_highest_pword(word_probability_list, sentences)
