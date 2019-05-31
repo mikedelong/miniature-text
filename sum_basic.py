@@ -49,7 +49,7 @@ def highest_scoring_sentence(arg_subset):
 def calculate_weight(arg_sentences, arg_word_probability, verbose=0):
     result = {}
     for index, sentence in enumerate(arg_sentences):
-        word_count: int = len(sentence.split())
+        word_count = len(sentence.split())
         sum_up = 0
         for local_word in sentence.split():
             if local_word in arg_word_probability.keys():
