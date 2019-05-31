@@ -19,7 +19,8 @@ if __name__ == '__main__':
     with open(settings_file, 'r') as settings_fp:
         settings = load(settings_fp)
 
-    tokenizer_pickle = settings['tokenizer_pickle'] if 'tokenizer_pickle' in settings.keys() else None
+    tokenizer_pickle = settings['tokenizer_pickle'] if \
+        'tokenizer_pickle' in settings.keys() else None
     tokenizer = None
     if tokenizer_pickle is not None:
         tokenizer = nltk.data.load(tokenizer_pickle)
@@ -27,7 +28,8 @@ if __name__ == '__main__':
         print('tokenizer pickle is not defined in settings file {}. Quitting.'.format(settings_file))
         quit(-1)
 
-    input_folder = settings['input_folder'] if 'input_folder' in settings.keys() else None
+    input_folder = settings['input_folder'] if \
+        'input_folder' in settings.keys() else None
     if input_folder is not None:
         if not exists(input_folder):
             print('input data folder does not exist. Quitting.')
