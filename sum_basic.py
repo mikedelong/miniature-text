@@ -50,13 +50,15 @@ def calculate_weight(arg_sentences, arg_word_probability, verbose=0):
     result = {}
     for index, sentence in enumerate(arg_sentences):
         word_count = len(sentence.split())
-        sum_up = 0
-        for local_word in sentence.split():
-            if local_word in arg_word_probability.keys():
-                sum_up += arg_word_probability[local_word]
-            else:
-                if verbose > 0:
-                    print('warning: we have no word probability for word {}'.format(local_word))
+        # sum_up = 0
+        # for local_word in sentence.split():
+        #     if local_word in arg_word_probability.keys():
+        #         sum_up += arg_word_probability[local_word]
+        #     else:
+        #         if verbose > 0:
+        #             print('warning: we have no word probability for word {}'.format(local_word))
+        sum_up = sum([arg_word_probability[local_word] for local_word in sentence.split() if
+                      local_word in arg_word_probability.keys()])
         sum_up = float(sum_up) / float(word_count)
         result[index] = sum_up
     return result
