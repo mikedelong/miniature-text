@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import nltk.data
 from nltk import FreqDist
 from nltk import word_tokenize
+from nltk.tokenize import sent_tokenize
 from tika import parser
 
 settings_file = 'first_cut.json'
@@ -25,7 +26,9 @@ if __name__ == '__main__':
     if tokenizer_pickle is not None:
         tokenizer = nltk.data.load(tokenizer_pickle)
     else:
-        print('tokenizer pickle is not defined in settings file {}. Quitting.'.format(settings_file))
+        quit_message = 'tokenizer pickle is not defined in settings file' \
+                       '{}. Quitting.'
+        print(quit_message.format(settings_file))
         quit(-1)
 
     input_folder = settings['input_folder'] if \
@@ -55,7 +58,8 @@ if __name__ == '__main__':
     print('our content is a string of length {}'.format(len(parsed['content'])))
     content = parsed['content']
 
-    sentences = tokenizer.tokenize(content)
+    # sentences = tokenizer.tokenize(content)
+    sentences = sent_tokenize(content, language='english')
     print('before we remove very short sentences we have {} sentences'.format(len(sentences)))
     sentences = [item for item in sentences if len(item) > 1]
     print('after we remove very short sentences we have {} sentences'.format(len(sentences)))
