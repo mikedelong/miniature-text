@@ -9,7 +9,6 @@ from json import load
 from os.path import exists
 
 import matplotlib.pyplot as plt
-import nltk.data
 from nltk import FreqDist
 from nltk import word_tokenize
 from nltk.tokenize import sent_tokenize
@@ -19,17 +18,6 @@ settings_file = 'first_cut.json'
 if __name__ == '__main__':
     with open(settings_file, 'r') as settings_fp:
         settings = load(settings_fp)
-
-    tokenizer_pickle = settings['tokenizer_pickle'] if \
-        'tokenizer_pickle' in settings.keys() else None
-    tokenizer = None
-    if tokenizer_pickle is not None:
-        tokenizer = nltk.data.load(tokenizer_pickle)
-    else:
-        quit_message = 'tokenizer pickle is not defined in settings file' \
-                       '{}. Quitting.'
-        print(quit_message.format(settings_file))
-        quit(-1)
 
     input_folder = settings['input_folder'] if \
         'input_folder' in settings.keys() else None
