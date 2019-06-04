@@ -75,7 +75,7 @@ if __name__ == '__main__':
     candidates = {key: value for key, value in sentence_scores.items() if value > 3.0}
 
     for key, value in candidates.items():
-        print('{:5.2f} {}'.format(value, key[:100]))
+        print('{:5.2f} {}'.format(value, key.replace('\n', ' ')))
 
     values = [value for value in candidates.values()]
     plt.plot(sorted(values))
