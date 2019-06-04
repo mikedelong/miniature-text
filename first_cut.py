@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     word_count = freq_dist.N()
     print('our frequency distribution has {} items'.format(len(freq_dist)))
-    print('our word count is {}'.format(freq_dist.N()))
+    print('our word count is {}'.format(word_count))
 
     # now let's traverse our frequency distribution and build our token-probability map
     probabilities = {
