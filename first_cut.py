@@ -46,6 +46,7 @@ if __name__ == '__main__':
     print('our content is a string of length {}'.format(len(parsed['content'])))
     content = parsed['content']
 
+    # todo fix quotes
     # sentences = tokenizer.tokenize(content)
     sentences = sent_tokenize(content, language='english')
     print('before we remove very short sentences we have {} sentences'.format(len(sentences)))
