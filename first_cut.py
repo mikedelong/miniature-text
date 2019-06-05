@@ -49,6 +49,17 @@ if __name__ == '__main__':
     # todo fix quotes
     # todo fix word divisions at ends of lines that are not ends of sentences
 
+    splices = {
+        'dis-\ncussed': 'discussed',
+        'dis-\ncuss': 'discuss',
+        'look-\ning': 'looking',
+        # 'over-arching': 'overarching',
+        'Goldwater-\nNichols': 'Goldwater-Nichols'
+    }
+    for key, value in splices.items():
+        if key in content:
+            content = content.replace(key, value)
+
     # sentences = tokenizer.tokenize(content)
     sentences = sent_tokenize(content, language='english')
     print('before we remove very short sentences we have {} sentences'.format(len(sentences)))
@@ -62,13 +73,18 @@ if __name__ == '__main__':
         for word in word_tokenize(sentence):
             freq_dist[word.lower()] += 1
 
+    count = 0
+    for word in freq_dist.keys():
+        if word.endswith('-'):
+            count += 1
+            print('{} {} '.format(count, word))
+
     word_count = freq_dist.N()
     print('our frequency distribution has {} items'.format(len(freq_dist)))
     print('our word count is {}'.format(word_count))
 
     # now let's traverse our frequency distribution and build our token-probability map
-    probabilities = {
-        word: float(freq_dist[word]) / float(word_count) for word in freq_dist}
+    probabilities = {word: float(freq_dist[word]) / float(word_count) for word in freq_dist}
 
     # now we are ready to calculate scores for each sentence
     sentence_scores = {
