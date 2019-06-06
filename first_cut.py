@@ -97,5 +97,5 @@ if __name__ == '__main__':
         print('{:5.2f} {}'.format(value, key.replace('\n', ' ')))
 
     values = [value for value in candidates.values()]
-    plt.plot(sorted(values))
+    plt.plot(sorted(values), 'o', mfc='none')
     plt.show()
