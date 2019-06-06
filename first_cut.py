@@ -66,18 +66,24 @@ if __name__ == '__main__':
     sentences = [item for item in sentences if len(item) > 1]
     print('after we remove very short sentences we have {} sentences'.format(len(sentences)))
 
-    # now we need to count words and do a frequency score for each word
+    for index_sentence, sentence in enumerate(sentences):
+        words = word_tokenize(sentence)
+        for index, word in enumerate(words):
+            if word.endswith('-'):
+                print('{}: {}'.format(index_sentence, word + words[index + 1]))
 
+    # now we need to count words and do a frequency score for each word
     freq_dist = FreqDist()
     for sentence in sentences:
         for word in word_tokenize(sentence):
             freq_dist[word.lower()] += 1
 
-    count = 0
-    for word in freq_dist.keys():
-        if word.endswith('-'):
-            count += 1
-            print('{} {} '.format(count, word))
+    if False:
+        count = 0
+        for word in freq_dist.keys():
+            if word.endswith('-'):
+                count += 1
+                print('{} {} '.format(count, word))
 
     word_count = freq_dist.N()
     print('our frequency distribution has {} items'.format(len(freq_dist)))
