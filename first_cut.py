@@ -7,6 +7,7 @@ Created on Mon Apr  1 12:13:06 2019
 
 from json import load
 from os.path import exists
+from time import time
 
 import matplotlib.pyplot as plt
 from nltk import FreqDist
@@ -16,6 +17,7 @@ from tika import parser
 
 settings_file = 'first_cut.json'
 if __name__ == '__main__':
+    time_start = time()
     with open(settings_file, 'r') as settings_fp:
         settings = load(settings_fp)
 
@@ -105,3 +107,4 @@ if __name__ == '__main__':
     values = [value for value in candidates.values()]
     plt.plot(sorted(values), 'o', mfc='none')
     plt.show()
+    print('total elapsed time: {:5.2f}s'.format(time() - time_start))
