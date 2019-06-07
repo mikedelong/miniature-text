@@ -107,5 +107,6 @@ if __name__ == '__main__':
     values = [value for value in candidates.values()]
     plt.plot(sorted(values), 'o', mfc='none')
     output_file = './output/first_cut_plot.png'
+    print('writing score plot to {}'.format(output_file))
     plt.savefig(output_file)
     print('total elapsed time: {:5.2f}s'.format(time() - time_start))
