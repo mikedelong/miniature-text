@@ -74,6 +74,21 @@ if __name__ == '__main__':
             if word.endswith('-'):
                 print('{}: {}'.format(index_sentence, word + words[index + 1]))
 
+    modified = list()
+    for index_sentence, sentence in enumerate(sentences):
+        words = word_tokenize(sentence)
+
+        to_drop = list()
+        for index, word in enumerate(words):
+            if word.endswith('-'):
+                print('{}: {}'.format(index_sentence, word + words[index + 1]))
+                words[index] = word[:-1] + words[index + 1]
+                to_drop.append(index + 1)
+        words = ' '.join([words[index] for index in range(len(words) - 1, 0, -1) if index not in to_drop])
+        words = reversed(words)
+        modified.append(words)
+    sentences = modified
+
     # now we need to count words and do a frequency score for each word
     freq_dist = FreqDist()
     for sentence in sentences:
