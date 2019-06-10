@@ -1,10 +1,10 @@
 def fix(arg):
     result = list()
     skip = False
-    for index, item in enumerate(text):
+    for index, item in enumerate(arg):
         if item.endswith('-'):
             out_item = item[:-1]
-            result.append(out_item + text[index + 1])
+            result.append(out_item + arg[index + 1])
             skip = True
         else:
             if skip:
