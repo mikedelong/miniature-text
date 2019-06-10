@@ -1,5 +1,4 @@
-if __name__ == '__main__':
-    text = ['the', 'beginn-', 'ing', 'and']
+def fix(arg):
     result = list()
     skip = False
     for index, item in enumerate(text):
@@ -12,4 +11,9 @@ if __name__ == '__main__':
                 skip = False
             else:
                 result.append(item)
-    print(result)
+    return result
+
+
+if __name__ == '__main__':
+    text = ['the', 'beginn-', 'ing', 'and']
+    print(fix(text))
