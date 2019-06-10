@@ -15,6 +15,23 @@ from nltk import word_tokenize
 from nltk.tokenize import sent_tokenize
 from tika import parser
 
+
+def fix(arg):
+    result = list()
+    skip = False
+    for item_index, item in enumerate(arg):
+        if item.endswith('-'):
+            out_item = item[:-1]
+            result.append(out_item + arg[item_index + 1])
+            skip = True
+        else:
+            if skip:
+                skip = False
+            else:
+                result.append(item)
+    return result
+
+
 settings_file = 'first_cut.json'
 if __name__ == '__main__':
     time_start = time()
