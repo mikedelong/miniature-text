@@ -67,7 +67,6 @@ if __name__ == '__main__':
     content = parsed['content']
 
     # todo fix quotes
-    # todo fix word divisions at ends of lines that are not ends of sentences
 
     splices = {
         'dis-\ncussed': 'discussed',
