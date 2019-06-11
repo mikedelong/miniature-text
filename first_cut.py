@@ -12,6 +12,7 @@ from time import time
 import matplotlib.pyplot as plt
 from nltk import FreqDist
 from nltk import word_tokenize
+from nltk.tokenize import casual_tokenize
 from nltk.tokenize import sent_tokenize
 from tika import parser
 
@@ -86,7 +87,7 @@ if __name__ == '__main__':
     print('after we remove very short sentences we have {} sentences'.format(len(sentences)))
 
     for index_sentence, sentence in enumerate(sentences):
-        words = word_tokenize(sentence)
+        words = casual_tokenize(sentence)
         for index, word in enumerate(words):
             if word.endswith('-'):
                 print('{}: {}'.format(index_sentence, word + words[index + 1]))
