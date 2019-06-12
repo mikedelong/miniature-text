@@ -67,18 +67,6 @@ if __name__ == '__main__':
     content = parsed['content']
 
     # todo fix quotes
-
-    splices = {
-        'dis-\ncussed': 'discussed',
-        'dis-\ncuss': 'discuss',
-        'look-\ning': 'looking',
-        # 'over-arching': 'overarching',
-        'Goldwater-\nNichols': 'Goldwater-Nichols'
-    }
-    for key, value in splices.items():
-        if key in content:
-            content = content.replace(key, value)
-
     # sentences = tokenizer.tokenize(content)
     sentences = sent_tokenize(content, language='english')
     print('before we remove very short sentences we have {} sentences'.format(len(sentences)))
