@@ -92,13 +92,6 @@ if __name__ == '__main__':
         for word in word_tokenize(sentence):
             freq_dist[word.lower()] += 1
 
-    if False:
-        count = 0
-        for word in freq_dist.keys():
-            if word.endswith('-'):
-                count += 1
-                print('{} {} '.format(count, word))
-
     word_count = freq_dist.N()
     print('our frequency distribution has {} items'.format(len(freq_dist)))
     print('our word count is {}'.format(word_count))
