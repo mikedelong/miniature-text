@@ -69,9 +69,6 @@ if __name__ == '__main__':
     # todo fix quotes
     # todo put summary sentences back in order
     sentences = sent_tokenize(content, language='english')
-    sentences_with_order = {
-        sentence: index for index, sentence in enumerate(sentences)
-    }
 
     print('before we remove very short sentences we have {} sentences'.format(len(sentences)))
     sentences = [item for item in sentences if len(item) > 1]
@@ -105,13 +102,13 @@ if __name__ == '__main__':
 
     # now we are ready to calculate scores for each sentence
     sentence_scores = {
-        sentence: sum([probabilities[word.lower()] for word in word_tokenize(sentence)])
-        for sentence in sentences}
+        sentence: (sum([probabilities[word.lower()] for word in word_tokenize(sentence)]), index)
+        for index, sentence in enumerate(sentences)}
 
-    candidates = {key: value for key, value in sentence_scores.items() if value > 3.0}
+    candidates = {key: value for key, value in sentence_scores.items() if value[0] > 3.0}
 
     for key, value in candidates.items():
-        print('{:5.2f} {}'.format(value, key.replace('\n', ' ')))
+        print('{:5.2f} {} {}'.format(value[0], value[1], key.replace('\n', ' ')))
 
     values = [value for value in candidates.values()]
     plt.plot(sorted(values), 'o', mfc='none')
