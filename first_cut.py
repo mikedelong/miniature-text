@@ -69,6 +69,10 @@ if __name__ == '__main__':
     # todo fix quotes
     # todo put summary sentences back in order
     sentences = sent_tokenize(content, language='english')
+    sentences_with_order = {
+        sentence: index for index, sentence in enumerate(sentences)
+    }
+
     print('before we remove very short sentences we have {} sentences'.format(len(sentences)))
     sentences = [item for item in sentences if len(item) > 1]
     print('after we remove very short sentences we have {} sentences'.format(len(sentences)))
