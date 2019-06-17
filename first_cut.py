@@ -74,14 +74,17 @@ if __name__ == '__main__':
     sentences = [item for item in sentences if len(item) > 1]
     print('after we remove very short sentences we have {} sentences'.format(len(sentences)))
 
+    examples = set()
     running_count = 0
     for index_sentence, sentence in enumerate(sentences):
         words = casual_tokenize(sentence)
         for index, word in enumerate(words):
             if word.endswith('-'):
                 running_count += 1
-                print('{}: {} : {}'.format(index_sentence, running_count, words[index - 1] + word + words[index + 1]))
-
+                example = words[index - 1] + word + words[index + 1]
+                print('{}: {} : {}'.format(index_sentence, running_count, example))
+                examples.add(example)
+    print('we found {} distinct splits'.format(len(examples)))
     modified = list()
     for index_sentence, sentence in enumerate(sentences):
         words = word_tokenize(sentence)
