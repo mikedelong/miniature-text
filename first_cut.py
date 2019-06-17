@@ -80,7 +80,7 @@ if __name__ == '__main__':
         for index, word in enumerate(words):
             if word.endswith('-'):
                 running_count += 1
-                print('{}: {} : {}'.format(index_sentence, running_count, word + words[index + 1]))
+                print('{}: {} : {}'.format(index_sentence, running_count, words[index - 1] + word + words[index + 1]))
 
     modified = list()
     for index_sentence, sentence in enumerate(sentences):
