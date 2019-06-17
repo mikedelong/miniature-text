@@ -74,11 +74,13 @@ if __name__ == '__main__':
     sentences = [item for item in sentences if len(item) > 1]
     print('after we remove very short sentences we have {} sentences'.format(len(sentences)))
 
+    running_count = 0
     for index_sentence, sentence in enumerate(sentences):
         words = casual_tokenize(sentence)
         for index, word in enumerate(words):
             if word.endswith('-'):
-                print('{}: {}'.format(index_sentence, word + words[index + 1]))
+                running_count += 1
+                print('{}: {} : {}'.format(index_sentence, running_count, word + words[index + 1]))
 
     modified = list()
     for index_sentence, sentence in enumerate(sentences):
