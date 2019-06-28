@@ -1138,8 +1138,10 @@ if __name__ == '__main__':
              # 'c0a8-01ed': 'c0a801ed', '01ed-004e': '01ed004e', '004e-5e7ac897d678': '004e5e7ac897d678',
              'Non-proliferation': 'Nonproliferation', 'Heart-land': 'Heartland', 'watch-listed.Had': 'watchlisted. Had',
              'fraud-ulent': 'fraudulent', 'incorpo-rating': 'incorporating', 'bio-metric': 'biometric',
-             'docu-ments.Pub.L.No': 'documents.Pub.L.No', 'nation-als': 'nationals', 'law-fulness': 'lawfulness',
-             'Stu-dents': 'Students', 'per-564': 'per564', 'Initia-tive': 'Initiative', 'let-ter': 'letter',
+             'docu-ments.Pub.L.No': 'documents. Pub.L.No', 'nation-als': 'nationals', 'law-fulness': 'lawfulness',
+             'Stu-dents': 'Students',
+             'per-564': 'per564',
+             'Initia-tive': 'Initiative', 'let-ter': 'letter',
              'task-ing': 'tasking', 'super-vise': 'supervise', 'retain-ing': 'retaining', 'assem-bled': 'assembled',
              'com-mands': 'commands', 'opera-tional': 'operational', 'Stan-ford': 'Stanford', 'Augus-tine': 'Augustine',
              'Aware-ness': 'Awareness'}
