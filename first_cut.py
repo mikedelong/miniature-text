@@ -848,7 +848,7 @@ if __name__ == '__main__':
              'exacer-bate': 'exacerbate', 'coop-erating': 'cooperating', 'con-cerning': 'concerning',
              'inves-tigative': 'investigative', 'ded-icated': 'dedicated',
              # 'inves-424': 'inves424',
-             'prerequi-site': 'prerequisite', 'mis-sion.This': 'mission.This', 'appro-priately': 'appropriately',
+             'prerequi-site': 'prerequisite', 'mis-sion.This': 'mission. This', 'appro-priately': 'appropriately',
              'qualifi-cations': 'qualifications', 'assim-ilate': 'assimilate', 'Secu-rity.They': 'Security. They',
              # 'ter-HOW': 'terHOW',
              'infra-structure': 'infrastructure', 'recom-mended': 'recommended',
