@@ -5,6 +5,7 @@ Created on Mon Apr  1 12:13:06 2019
 @author: mikedelong
 """
 
+from collections import OrderedDict
 from json import load
 from os.path import exists
 from time import time
@@ -1148,6 +1149,11 @@ if __name__ == '__main__':
              'com-mands': 'commands', 'opera-tional': 'operational', 'Stan-ford': 'Stanford', 'Augus-tine': 'Augustine',
              'Aware-ness': 'Awareness'}
 
+    ordered_fixes = OrderedDict()
+    for key in sorted(list(fixes.keys())):
+        ordered_fixes[key] = fixes[key]
+
+    print(ordered_fixes)
     examples = set()
     fix_candidates = dict()
     running_count = 0
