@@ -1152,8 +1152,9 @@ if __name__ == '__main__':
     ordered_fixes = OrderedDict()
     for key in sorted(list(fixes.keys())):
         ordered_fixes[key] = fixes[key]
-
+    # todo print these so we can just copy and paste the result as a dictionary
     print(ordered_fixes)
+
     examples = set()
     fix_candidates = dict()
     running_count = 0
