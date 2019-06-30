@@ -75,7 +75,6 @@ if __name__ == '__main__':
     sentences = [item for item in sentences if len(item) > 1]
     print('after we remove very short sentences we have {} sentences'.format(len(sentences)))
 
-    # todo put fixes in alphabetical order to identify near-matches
     # todo move fixes to data
     fixes = {'suf-fering': 'suffering', 'includ-ing': 'including', 'diplo-macy': 'diplomacy',
              'investi-gation': 'investigation', 'polit-ical': 'political', 'dis-tinction': 'distinction',
